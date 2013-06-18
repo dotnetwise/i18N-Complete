@@ -1,0 +1,440 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>I18N Localization Help</title>
+    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css">
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.6.2.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/jquery-ui.js"></script>
+</head>
+<body>
+    <script>
+        $(function () {
+            $("#tabs").tabs();
+        });
+    </script>
+    <style>
+        .lc .t {
+            width: 100%;
+        }
+        .lc pre.c {
+            background-color: #F7F7F7;
+            border: solid 1px #E8E8E8;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            color: #314E64;
+            font-family: "Menlo" , "Courier New" , "Courier" ,monospace;
+            line-height: 1.3em;
+            padding: 10px 10px;
+            margin: 10px 0 14px 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        .lc .e {
+            background-color: #e7e7e7;
+            font-family: "Menlo" , "Courier New" , "Courier" ,monospace;
+            color: #314E64;
+            padding: 10px 20px;
+            margin: 10px 0 14px 0;
+        }
+        .lc .s, .lc .a1, .lc .a2 {
+            font-family: Courier New;
+        }
+        .lc .s {
+            color: Purple;
+        }
+        .lc .a1 {
+            color: Navy;
+        }
+        .lc .a2 {
+            color: Green;
+        }
+        .lc .desc {
+            font-family: Helvetica Neue,Arial,sans-serif;
+            color: #484848;
+        }
+        .lc .warning {
+            font-weight: bold;
+            color: Gray;
+        }
+        .ui-tabs .ui-tabs-panel {
+            display: block;
+            overflow-x: auto;
+            border-width: 0;
+            padding: 1em 0;
+        }
+    </style>
+    <div id="tabs" class="lc">
+        <ul>
+            <li><a href="#Singular">Singular</a></li>
+            <li><a href="#Plural">Plural</a></li>
+        </ul>
+        <table class="t" id="Singular">
+            <tr>
+                <th>
+                    Short
+                </th>
+                <th>
+                    Aliases
+                </th>
+                <th>
+                    ASP.NET MVC 3 Input » HTML Output
+                </th>
+            </tr>
+            <tr>
+                <td title="1 underscore" rowspan="3" class="s">
+                    _
+                </td>
+                <td rowspan="2">
+                    <div class="a1">
+                        GetString</div>
+                    <div class="a2">
+                        Format</div>
+                </td>
+                <td>
+                    <div class="sig" title="Signature">
+                        <div class="csharp">
+                            <div class="de1">
+                                <span class="kw4">string</span> _<span class="br0">&#40;</span><span class="kw4">string</span>
+                                text, <span class="kw1">params</span> <span class="kw4">object</span><span class="br0">&#91;</span><span
+                                    class="br0">&#93;</span> arguments<span class="br0">&#41;</span></div>
+                        </div>
+                    </div>
+                    <pre class="c" title="ASP .NET MVC 3 / C# usage"><span title="1 underscore">@@_</span>(&quot;Encoded&nbsp;&lt;b&gt;text&lt;/b&gt; with encoded {0}&quot;, &quot;&lt;b&gt;argument&lt;/b&gt;&quot;)</pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="e" title="HTML Output">
+                    @_("Encoded <b>text</b> with encoded {0}", "<b>argument</b>")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="desc">
+                    Translates the given text applying <b>string.Format(text, arguments)</b>
+                    <br />
+                    The text and argument values will be HTML Encoded when used in ASP.NET MVC
+                </td>
+            </tr>
+            <tr>
+                <td title="2 underscores" rowspan="3">
+                    __
+                </td>
+                <td rowspan="2">
+                    <div class="a1">
+                        GetHtml</div>
+                    <div class="a2">
+                        FormatHtml</div>
+                </td>
+                <td>
+                    <div class="sig" title="Signature">
+                        <div class="csharp">
+                            <div class="de1">
+                                <span class="kw4">string</span> __<span class="br0">&#40;</span><span class="kw4">string</span>
+                                htmlText, <span class="kw1">params</span> <span class="kw4">object</span><span class="br0">&#91;</span><span
+                                    class="br0">&#93;</span> arguments<span class="br0">&#41;</span></div>
+                        </div>
+                    </div>
+                    <pre class="c" title="ASP .NET MVC 3 / C# usage"><span title="2 underscores">@@__</span>(&quot;Raw HTML&nbsp;&lt;b&gt;text&lt;/b&gt; with encoded {0}&quot;, &quot;&lt;b&gt;argument&lt;/b&gt;&quot;)</pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="e" title="HTML Output">
+                    @__("Raw HTML <b>text</b> with encoded {0}", "<b>argument</b>")
+                </td>
+                <tr>
+                    <td colspan="2" class="desc">
+                        Translates the given html applying <b>string.Format(html, arguments.Select(a =&gt; HttpUtility.HtmlEncode(a)))</b>
+                        <br />
+                        The html will be kept as it is, while arguments will be automatically HTML Encoded
+                    </td>
+                </tr>
+            </tr>
+            <tr>
+                <td title="3 underscores" rowspan="3" class="s">
+                    ___
+                </td>
+                <td rowspan="2">
+                    <div class="a1">
+                        GetRaw</div>
+                    <div class="a2">
+                        FormatRaw</div>
+                </td>
+                <td>
+                    <div class="sig" title="Signature">
+                        <div class="csharp">
+                            <div class="de1">
+                                <span class="kw4">string</span> ___<span class="br0">&#40;</span><span class="kw4">string</span>
+                                htmlText, <span class="kw1">params</span> <span class="kw4">object</span><span class="br0">&#91;</span><span
+                                    class="br0">&#93;</span> htmlArguments<span class="br0">&#41;</span></div>
+                        </div>
+                    </div>
+                    <pre class="c" title="ASP .NET MVC 3 / C# usage"><span title="3 underscores">@@___</span>(&quot;Raw HTML&nbsp;&lt;b&gt;text&lt;/b&gt; with raw HTML {0}&quot;, &quot;&lt;b&gt;argument&lt;/b&gt;&quot;)</pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="e" title="HTML Output">
+                    @___("Raw HTML <b>text</b> with raw HTML {0}", "<b>argument</b>")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="desc">
+                    Translates the given html applying <b>string.Format(html, htmlArguments)</b>
+                    <br />
+                    <span class="warning">Warning!</span> Neither the html nor the htmlArguments will
+                    be encoded whatsoever
+                </td>
+            </tr>
+            <tr>
+                <td title="3 underscores" rowspan="3" class="s">
+                    ___
+                </td>
+                <td rowspan="2">
+                    <div class="a1">
+                        GetRaw</div>
+                    <div class="a2">
+                        FormatRaw</div>
+                </td>
+                <td>
+                    <div class="sig" title="Signature">
+                        <div class="csharp">
+                            <div class="de1">
+                                <span class="kw4">string</span> _<span class="br0">&#40;</span><span class="kw4">string</span>
+                                text, Func<span class="sy0">&lt;</span><span class="kw4">object</span>,<span class="kw4">string</span><span
+                                    class="sy0">&gt;</span> escape, <span class="kw1">params</span> <span class="kw4">object</span><span
+                                        class="br0">&#91;</span><span class="br0">&#93;</span> arguments<span class="br0">&#41;</span></div>
+                        </div>
+                    </div>
+                    <pre class="c" title="ASP .NET MVC 3 / C# usage">&lt;div title=&quot;@@___(&quot;Valid HTML attribute &lt;b&gt;encoded&lt;/b&gt; with translated {0}&quot;, 
+     a =&gt; HttpUtility.HtmlAttributeEncode(a as string), 
+     @@&quot;&quot;&quot;argument&quot;&quot;&quot;)&quot;&gt;&lt;/div&gt;</pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="e" title="HTML Output" title="@___("Valid HTML attribute <b>encoded</b> with translated {0}", a => HttpUtility.HtmlAttributeEncode(a as string), @"""argument""")">
+                    &lt;div title="@Html.Encode(___("Valid HTML attribute <b>encoded</b> with translated {0}", a => HttpUtility.HtmlAttributeEncode(a as string), @"""argument"""))"&gt;&lt;/div&gt;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="desc">
+                    Translates the given html applying <b>string.Format(html, arguments.Select(a =&gt; escape(a)))</b>
+                    <br />
+                    For each argument the escape func will be called before applying the format
+                </td>
+            </tr>
+        </table>
+        <table class="t" id="Plural">
+            <tr>
+                <th>
+                    Short
+                </th>
+                <th>
+                    Aliases
+                </th>
+                <th>
+                    ASP.NET MVC 3 Input » HTML Output
+                </th>
+            </tr>
+            <tr>
+                <td title="1 underscore and s" rowspan="3" class="s">
+                    _s
+                </td>
+                <td rowspan="2">
+                    <div class="a1">
+                        GetPluralString</div>
+                    <div class="a2">
+                        FormatPlural</div>
+                </td>
+                <td>
+                    <div class="sig" title="Signature">
+                        <div class="csharp">
+                            <div class="de1">
+                                <span class="kw4">string</span> _<span class="br0">&#40;</span><span class="kw4">string</span>
+                                singular, <span class="kw4">string</span> plural, <span class="kw4">int</span> count,
+                                <span class="kw1">params</span> <span class="kw4">object</span><span class="br0">&#91;</span><span
+                                    class="br0">&#93;</span> arguments<span class="br0">&#41;</span></div>
+                        </div>
+                    </div>
+                    <pre class="c" title="ASP .NET MVC 3 / C# usage"><span title="1 underscore and s">_s</span>(&quot;{0}&nbsp;&lt;b&gt;item&lt;/b&gt; of {1}&quot;, &quot;{0}&nbsp;&lt;b&gt;items&lt;/b&gt; of {1}&quot;, &quot;&lt;b&gt;100&lt;/b&gt;lbs&quot;)</pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="e" title="HTML Output">
+                    @_s("{0} <b>item</b> of {1}", "{0} <b>items</b> of {1}", 1, "<b>100</b>lbs")<br />
+                    @_s("{0} <b>item</b> of {1}", "{0} <b>items</b> of {1}", 2, "<b>100</b>lbs")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="desc">
+                    Translates the given singular or plural text applying
+                    <br />
+                    <b>string.Format(html, new[] {count}.Concat(arguments)</b>
+                    <br />
+                    The singular/plural text and argument values will be HTML Encoded when used in ASP.NET
+                    MVC
+                    <br />
+                    If count is 1 the singular text will be used, otherwise the plural text
+                </td>
+            </tr>
+            <tr>
+                <td title="2 underscores and s" rowspan="3" class="s">
+                    __s
+                </td>
+                <td rowspan="2">
+                    <div class="a1">
+                        GetPluralHtml</div>
+                    <div class="a2">
+                        FormatHtmlPlural</div>
+                </td>
+                <td>
+                    <div class="sig" title="Signature">
+                        <div class="csharp">
+                            <div class="de1">
+                                <span class="kw4">MvcHtmlString</span> _<span class="br0">&#40;</span><span class="kw4">string</span>
+                                singularHtml, <span class="kw4">string</span> pluralHtml, <span class="kw4">int</span>
+                                count, <span class="kw1">params</span> <span class="kw4">object</span><span class="br0">&#91;</span><span
+                                    class="br0">&#93;</span> arguments<span class="br0">&#41;</span></div>
+                        </div>
+                    </div>
+                    <pre class="c" title="ASP .NET MVC 3 / C# usage"><span title="2 underscores and s">__s</span>(&quot;{0}&nbsp;&lt;b&gt;item&lt;/b&gt; of {1}&quot;, &quot;{0}&nbsp;&lt;b&gt;items&lt;/b&gt; of {1}&quot;, &quot;&lt;b&gt;100&lt;/b&gt;lbs&quot;)</pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="e" title="HTML Output">
+                    @__s("{0} <b>item</b> of {1}", "{0} <b>items</b> of {1}", 1, "<b>100</b>lbs")<br />
+                    @__s("{0} <b>item</b> of {1}", "{0} <b>items</b> of {1}", 2, "<b>100</b>lbs")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="desc">
+                    Translates the given singular or plural HTML applying
+                    <br />
+                    <b>string.Format(html, new[] {count}.Concat(arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))))</b>
+                    <br />
+                    The singular/plural HTML will be kept as it is, while arguments will be automatically
+                    HTML Encoded
+                </td>
+            </tr>
+            <tr>
+                <td title="3 underscores" rowspan="3" class="s">
+                    ___s
+                </td>
+                <td rowspan="2">
+                    <div class="a1">
+                        GetPluralRaw</div>
+                    <div class="a2">
+                        FormatRawPlural</div>
+                </td>
+                <td>
+                    <div class="sig" title="Signature">
+                        <div class="csharp">
+                            <div class="de1">
+                                <span class="kw4">MvcHtmlString</span> _<span class="br0">&#40;</span><span class="kw4">string</span>
+                                singularHtml, <span class="kw4">string</span> pluralHtml, <span class="kw4">int</span>
+                                count, <span class="kw1">params</span> <span class="kw4">object</span><span class="br0">&#91;</span><span
+                                    class="br0">&#93;</span> htmlArguments<span class="br0">&#41;</span></div>
+                        </div>
+                    </div>
+                    <pre class="c" title="ASP .NET MVC 3 / C# usage"><span title="3 underscore and s">___s</span>(&quot;{0}&nbsp;&lt;b&gt;item&lt;/b&gt; of {1}&quot;, &quot;{0}&nbsp;&lt;b&gt;items&lt;/b&gt; of {1}&quot;, &quot;&lt;b&gt;100&lt;/b&gt;lbs&quot;)</pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="e" title="HTML Output">
+                    @___s("{0} <b>item</b> of {1}", "{0} <b>items</b> of {1}", 1, "<b>100</b>lbs")<br />
+                    @___s("{0} <b>item</b> of {1}", "{0} <b>items</b> of {1}", 2, "<b>100</b>lbs")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="desc">
+                    Translates the given singular or plural text/html applying
+                    <br />
+                    <b>string.Format(count == 1 ? singular : plural, new[] {count}.Concat(htmlArguments))</b>
+                    language.
+                    <br />
+                    <span class="warning">Warning!</span> Neither the html nor the htmlArguments will
+                    be encoded whatsoever
+                </td>
+            </tr>
+            <tr>
+                <td title="3 underscores" rowspan="3" class="s">
+                    ___s
+                </td>
+                <td rowspan="2">
+                    <div class="a1">
+                        GetPluralRaw</div>
+                    <div class="a2">
+                        FormatRawPlural</div>
+                </td>
+                <td>
+                    <div class="sig" title="Signature">
+                        <div class="csharp">
+                            <div class="de1">
+                                <span class="kw4">MvcHtmlString</span> _<span class="br0">&#40;</span><span class="kw4">string</span>
+                                singular, <span class="kw4">string</span> plural, <span class="kw4">int</span> count,
+                                Func<span class="sy0">&lt;</span><span class="kw4">object</span>,<span class="kw4">string</span><span
+                                    class="sy0">&gt;</span> escape, <span class="kw1">params</span> <span class="kw4">object</span><span
+                                        class="br0">&#91;</span><span class="br0">&#93;</span> arguments<span class="br0">&#41;</span></div>
+                        </div>
+                    </div>
+                    <pre class="c" title="ASP .NET MVC 3 / C# usage">&lt;div title=&quot;@@___s(
+     &quot;{0} \&quot;&lt;b&gt;item&lt;/b&gt;\" of {1}&quot;, 
+     &quot;{0} \"&lt;b&gt;items&lt;/b&gt;\" of {1}&quot;, 
+     a =&gt; HttpUtility.HtmlAttributeEncode(a as string), 
+     @@&quot;&quot;&quot;&lt;b&gt;100&lt;/&gt;&quot;&quot; lbs&quot;)&quot;&gt;&lt;/div&gt;</pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="e" title="HTML Output" title="@___s("{0} \"<b>item</b>\" of {1}", "{0} \"<b>items</b>\" of {1}", 1, a => HttpUtility.HtmlAttributeEncode((a ?? "").ToString()), @"""<b>100</b>"" lbs")">
+                    &lt;div title="@Html.Encode(___s("{0} \"<b>item</b>\" of {1}", "{0} \"<b>items</b>\" of {1}", 2, a => HttpUtility.HtmlAttributeEncode((a ?? "").ToString()), @"""<b>100</b>"" lbs"))"&gt;&lt;/div&gt;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="desc">
+                    Translates the given singular or plural text/html applying
+                    <br />
+                    <b>string.Format(count == 1 ? singular : plural, new[] { escape(count) }.Concat(arguments).Select(a
+                        =&gt; escape(a)))</b>
+                    <br />
+                    For each argument the escape func will be called before applying the format
+                </td>
+            </tr>
+        </table>
+    </div>
+    <style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.csharp .de1, .csharp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;color: #000020; }
+.csharp  {font-family:monospace;color: #006; border: 1px solid #d0d0d0; background-color: #f0f0f0; border-radius: 5px;
+        -moz-border-radius: 5px; padding: 0 10px;}
+.csharp a:link {color: #000060;}
+.csharp a:hover {background-color: #f0f000;}
+.csharp .imp {font-weight: bold; color: red;}
+.csharp li, .csharp .li1 {font-weight: normal; vertical-align:top;font: normal normal 130% 'Courier New', Courier, monospace; color: #003030;}
+.csharp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.csharp .li2 {font-weight: bold; vertical-align:top;font-weight: bold; color: #006060;}
+.csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp .kw3 {color: #008000;}
+.csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp .kw5 {color: #000000;}
+.csharp .co1 {color: #008080; font-style: italic;}
+.csharp .co2 {color: #008080;}
+.csharp .co3 {color: #008080;}
+.csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp .es0 {color: #008080; font-weight: bold;}
+.csharp .es_h {color: #008080; font-weight: bold;}
+.csharp .br0 {color: #008000;}
+.csharp .sy0 {color: #008000;}
+.csharp .st0 {color: #666666;}
+.csharp .st_h {color: #666666;}
+.csharp .nu0 {color: #FF0000;}
+.csharp .me1 {color: #0000FF;}
+.csharp .me2 {color: #0000FF;}
+.csharp span.xtra { display:block; }
+
+--!></style>
+</body>
+</html>

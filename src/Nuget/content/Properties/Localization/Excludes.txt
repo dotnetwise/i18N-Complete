@@ -1,0 +1,21 @@
+#Specify custom files to be excluded
+#Lines starting with # are ignored, and considered comments
+#Lines starting with ~ are considered regular expressions. {s} and {p} will be replaced with provided suffix and prefix accordingly.
+#The rest are considered exact match, hence prefix and suffix will be automatically added if any
+#examples: (uncomment the following to be applied). Prefix is considered to be c:\work\ and suffix .js
+#a
+## if uncomment, the above will become c:\work\a.js
+~{p}\\packages
+## the above will be considered a regex e.g. c\:\\work\\packages\\.* -excluding all the files from c:\work\packages
+~\.min\.js$
+## the above will be considered a regex - excluding all files ending in .min.js
+~\.intellisense\.js$
+## the above will be considered a regex - excluding all files ending in .intellisense.js
+~\.js\.map$
+~jquery-.*\.js
+~r\.js
+~require\.js
+~text\.js
+~Localization\\Index.cshtml
+~knockout-.*\.js
+~modernizr-.*\.js

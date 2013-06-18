@@ -1,0 +1,1 @@
+node nupush.js -NoPackageAnalysis
