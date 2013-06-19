@@ -19,7 +19,8 @@ asyncblock(function (done) {
 	//automatically push *.nupkg files
 	var files = glob.sync("*.nupkg");
 	apiKey.split('\n').forEach(function (apiKey) {
-		files.forEach(function (file) {
+		if (apiKey)
+			files.forEach(function (file) {
 			//split apiKeys by space as they need to be individual arguments
 			var push = spawn("nuget", ["push", file].concat(apiKey.split(' ')), {
 				stdio: 'inherit',
