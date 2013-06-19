@@ -23,12 +23,9 @@ $task.SetParameter("Command", "`$`(ProjectDir`)`\Properties\Localization\localiz
 
 for ($i=0; $i -lt $filesArray.length; $i++)
 {
-	# if doesn't exist an exception will be thrown, then add it
 	try {
-		$localizationFolderProjectItem.ProjectItems.Item($filesArray[$i])
-	} catch {
 		$localizationFolderProjectItem.ProjectItems.AddFromFileCopy($toolsPath + "\Properties\Localization\" + $filesArray[$i])
-	 }
+	} catch { }
 }
 
 # Save the buildproject
