@@ -16,7 +16,83 @@ namespace System.Web.Mvc
 	public static class MvcExtendedMethods
 	{
 
-		#region Business Methods
+        #region Fields
+
+
+        #region Const
+
+        private static readonly object _o = new object();
+        private static readonly HelperResult EmptyContent = new HelperResult(_ => { });
+
+        #endregion Const
+
+
+        #region Static
+
+        static HelperResult Empty = new HelperResult(_ => { });
+        private static PropertyInfo PreviousSectionWriters = typeof(WebPageBase).GetProperty("PreviousSectionWriters", BindingFlags.Instance | BindingFlags.NonPublic);
+        private static PropertyInfo SectionWritersStack = typeof(WebPageBase).GetProperty("SectionWritersStack", BindingFlags.Instance | BindingFlags.NonPublic);
+
+        #endregion Static
+
+
+        #endregion Fields
+
+
+        #region Util Methods
+
+        /// <summary>
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        /// <created author="laurentiu.macovei" date="Fri, 18 Mar 2011 02:23:32 GMT"/>
+        private static Dictionary<string, SectionWriter> GetPreviousWriters(this WebPageBase page)
+        {
+            var sections = (Dictionary<string, SectionWriter>)PreviousSectionWriters.GetValue(page, null);
+            return sections;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        /// <created author="laurentiu.macovei" date="Fri, 18 Mar 2011 02:23:32 GMT"/>
+        private static Stack<Dictionary<string, SectionWriter>> GetSectionWritersStack(this WebPageBase page)
+        {
+            var sections = (Stack<Dictionary<string, SectionWriter>>)SectionWritersStack.GetValue(page, null);
+            return sections;
+        }
+
+
+        #endregion Util Methods
+
+		#region Public Methods
+
+        /// <summary>Encodes a string and returns it  as MvcHtmlString.</summary>
+        /// <param name="text">A string to encode.</param>
+        /// <param name="addDoubleQuotes">
+        /// A value that indicates whether double quotation marks will be included around 
+        /// the encoded string. 
+        /// </param>
+        /// <returns>An encoded string.</returns>
+        /// <created author="laurentiu.macovei" date="Mon, 13 Feb 2012 15:40:38 GMT"/>
+        public static MvcHtmlString js(this string text, bool addDoubleQuotes = true)
+        {
+            return new MvcHtmlString(HttpUtility.JavaScriptStringEncode(text, addDoubleQuotes));
+        }
+
+        /// <summary>Encodes a string and returns it as String.</summary>
+        /// <param name="text">A string to encode.</param>
+        /// <param name="addDoubleQuotes">
+        /// A value that indicates whether double quotation marks will be included around 
+        /// the encoded string. 
+        /// </param>
+        /// <returns>An encoded string.</returns>
+        /// <created author="laurentiu.macovei" date="Mon, 13 Feb 2012 15:40:38 GMT"/>
+        public static string Js(this string text, bool addDoubleQuotes = true)
+        {
+            return HttpUtility.JavaScriptStringEncode(text, addDoubleQuotes);
+        }
 
 		/// <summary>A Simple ActionLink Image</summary>
 		/// <param name="actionName">name of the action in controller</param>
@@ -121,60 +197,6 @@ namespace System.Web.Mvc
 		}
 		private static Regex CultureRegex = new Regex(@"^\/(?<lang>..(\-..)?)(?<url>\/?.*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-		#endregion Business Methods
-
-		#region Fields
-
-
-		#region Const
-
-		private static readonly object _o = new object();
-		private static readonly HelperResult EmptyContent = new HelperResult(_ => { });
-
-		#endregion Const
-
-
-		#region Static
-
-		static HelperResult Empty = new HelperResult(_ => { });
-		private static PropertyInfo PreviousSectionWriters = typeof(WebPageBase).GetProperty("PreviousSectionWriters", BindingFlags.Instance | BindingFlags.NonPublic);
-		private static PropertyInfo SectionWritersStack = typeof(WebPageBase).GetProperty("SectionWritersStack", BindingFlags.Instance | BindingFlags.NonPublic);
-
-		#endregion Static
-
-
-		#endregion Fields
-
-
-		#region Util Methods
-
-		/// <summary>
-		/// </summary>
-		/// <param name="page"></param>
-		/// <returns></returns>
-		/// <created author="laurentiu.macovei" date="Fri, 18 Mar 2011 02:23:32 GMT"/>
-		private static Dictionary<string, SectionWriter> GetPreviousWriters(this WebPageBase page)
-		{
-			var sections = (Dictionary<string, SectionWriter>)PreviousSectionWriters.GetValue(page, null);
-			return sections;
-		}
-
-		/// <summary>
-		/// </summary>
-		/// <param name="page"></param>
-		/// <returns></returns>
-		/// <created author="laurentiu.macovei" date="Fri, 18 Mar 2011 02:23:32 GMT"/>
-		private static Stack<Dictionary<string, SectionWriter>> GetSectionWritersStack(this WebPageBase page)
-		{
-			var sections = (Stack<Dictionary<string, SectionWriter>>)SectionWritersStack.GetValue(page, null);
-			return sections;
-		}
-
-
-		#endregion Util Methods
-
-
-		#region Business Methods
 		/// <summary>Returns the value if the request came from a mobile browser</summary>
 		/// <param name="request">The httpRequest to extend</param>
 		/// <param name="mobile">The value to be returned if Request.Browser.IsMobileDevice</param>
@@ -1039,7 +1061,7 @@ namespace System.Web.Mvc
 				: errorMessage;
 			return html.ValidationSummary(excludeProperties, message, dictionary);
 		}
-		#endregion Business Methods
+		#endregion Public Methods
 
 
 		#region DependentSection Class
@@ -1066,7 +1088,7 @@ namespace System.Web.Mvc
 			#endregion Properties
 
 
-			#region Business Methods
+			#region Public Methods
 
 			/// <summary>
 			/// </summary>
@@ -1090,7 +1112,7 @@ namespace System.Web.Mvc
 			}
 
 
-			#endregion Business Methods
+			#endregion Public Methods
 
 
 		}

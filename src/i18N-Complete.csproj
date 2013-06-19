@@ -132,7 +132,6 @@
     <Compile Include="System.Web.Mvc\MvcConfig.cs" />
     <Compile Include="System.Web.Mvc\MvcExtendedMethods.cs" />
     <Compile Include="System.Web.Mvc\RouteInfo.cs" />
-    <None Include="Localization.nuspec" />
     <None Include="nuget\content\Properties\Localization\Localize.bat" />
     <None Include="nuget\content\Properties\Localization\messages.de.po" />
     <None Include="nuget\content\Properties\Localization\messages.po" />
