@@ -133,11 +133,12 @@
     <Compile Include="System.Web.Mvc\MvcExtendedMethods.cs" />
     <Compile Include="System.Web.Mvc\RouteInfo.cs" />
     <None Include="Localization.nuspec" />
-    <None Include="nuget\content\Properties\Localization\Localize.bat" />
-    <None Include="nuget\content\Properties\Localization\messages.de.po" />
-    <None Include="nuget\content\Properties\Localization\messages.po" />
-    <None Include="nuget\content\Properties\Localization\messages.ro.po" />
-    <None Include="nuget\content\Properties\Localization\newmessages.pot" />
+    <None Include="nuget\tools\common.ps1" />
+    <None Include="nuget\tools\Properties\Localization\Localize.bat" />
+    <None Include="nuget\tools\Properties\Localization\messages.de.po" />
+    <None Include="nuget\tools\Properties\Localization\messages.po" />
+    <None Include="nuget\tools\Properties\Localization\messages.ro.po" />
+    <None Include="nuget\tools\Properties\Localization\newmessages.pot" />
     <None Include="nuget\content\Views\Localization\Index.cshtml" />
     <None Include="nuget\content\Views\Web.config.transform" />
     <None Include="nuget\Localization.nuspec" />
@@ -148,11 +149,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="nuget\content\Properties\Localization\Excludes.txt" />
-    <Content Include="nuget\content\Properties\Localization\FileExtensions.txt" />
-    <Content Include="nuget\content\Properties\Localization\Languages.txt" />
+    <Content Include="nuget\content\Properties\Localization\ReadMe.txt" />
+    <Content Include="nuget\tools\Properties\Localization\Excludes.txt" />
+    <Content Include="nuget\tools\Properties\Localization\FileExtensions.txt" />
+    <Content Include="nuget\tools\Properties\Localization\Languages.txt" />
+    <Content Include="nuget\content\Scripts\i18n.js" />
     <Content Include="nuget\lib\i18NComplete.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>

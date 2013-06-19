@@ -1,21 +1,35 @@
 ﻿#First some common params, delivered by the nuget package installer
 param($installPath, $toolsPath, $package, $project)
 Set-PsDebug -trace 1
-"Echo installing..."
+
+. (Join-Path $toolsPath common.ps1)
+
 # Grab a reference to the buildproject using a function from NuGetPowerTools
 $buildProject = Get-MSBuildProject
+
 # Add a target to your build project
 $target = $buildProject.Xml.AddTarget("Localization")
+
 # Make this target run before build
 # You don't need to call your target from the beforebuild target,
 # just state it using the BeforeTargets attribute
 $target.BeforeTargets = "BeforeBuild"
+
 # Add your task to the newly created target
 $task = $target.AddTask("Exec")
 $task.SetParameter("Command", "`$`(ProjectDir`)`\Properties\Localization\localize.bat `"`$`(SolutionDir`)`" `"`$`(ProjectDir`)`"")
 
+# Copy localization files only if they don't already exist
+
+for ($i=0; $i -lt $filesArray.length; $i++)
+{
+	try {
+		$localizationFolderProjectItem.ProjectItems.AddFromFileCopy($toolsPath + "\Properties\Localization\" + $filesArray[$i])
+	} catch { }
+}
+
 # Save the buildproject
 $buildProject.Save()
+
 # Save the project from the params
 $project.Save()
-
