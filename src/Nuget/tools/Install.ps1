@@ -1,11 +1,11 @@
 ﻿#First some common params, delivered by the nuget package installer
 param($installPath, $toolsPath, $package, $project)
-Set-PsDebug -trace 1
 
-. (Join-Path $toolsPath common.ps1)
 
 # Grab a reference to the buildproject using a function from NuGetPowerTools
 $buildProject = Get-MSBuildProject
+
+. (Join-Path $toolsPath common.ps1)
 
 # Add a target to your build project
 $target = $buildProject.Xml.AddTarget("Localization")
@@ -23,9 +23,12 @@ $task.SetParameter("Command", "`$`(ProjectDir`)`\Properties\Localization\localiz
 
 for ($i=0; $i -lt $filesArray.length; $i++)
 {
+	# if doesn't exist an exception will be thrown, then add it
 	try {
+		$localizationFolderProjectItem.ProjectItems.Item($filesArray[$i])
+	} catch {
 		$localizationFolderProjectItem.ProjectItems.AddFromFileCopy($toolsPath + "\Properties\Localization\" + $filesArray[$i])
-	} catch { }
+	 }
 }
 
 # Save the buildproject

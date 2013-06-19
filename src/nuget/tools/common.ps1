@@ -1,4 +1,6 @@
-﻿[string[]] $filesArray = "Excludes.txt", "FileExtensions.txt", "Languages.txt", "Localize.bat", "messages.de.po", "messages.po", "messages.ro.po", "newmessages.pot"
+﻿Set-PsDebug -trace 0
+
+[string[]] $filesArray = "Excludes.txt", "FileExtensions.txt", "Languages.txt", "Localize.bat", "messages.de.po", "messages.po", "messages.ro.po", "newmessages.pot"
 
 try {
 	$propertiesFolderProjectItem = $project.ProjectItems.Item("Properties")
@@ -16,11 +18,7 @@ try {
 	exit
 }
 
-Write-Host $localizationFolderProjectItem.ProjectItems.Item("Localize.bat") -ForegroundColor Red
-Write-Host $localizationPath -ForegroundColor Blue
-Write-Host $propertiesPath -ForegroundColor Blue
 $currentLocalizationPath = $toolsPath + "\Properties\Localization\"
-Write-Host $currentLocalizationPath -ForegroundColor Blue
 
 function Get-Checksum($file) {
     $cryptoProvider = New-Object "System.Security.Cryptography.MD5CryptoServiceProvider"
@@ -35,8 +33,8 @@ function Get-Checksum($file) {
     
     $bytes = $cryptoProvider.ComputeHash($stream)
     $checksum = ''
-	foreach ($byte in $bytes) {
-		$checksum += $byte.ToString('x2')
+	for ($i=0; $i -lt $bytes.length; $i++) {
+		$checksum += $bytes[$i].ToString('x2')
 	}
     
 	$stream.Close() | Out-Null
@@ -48,22 +46,29 @@ function Delete-ProjectItem($itemName) {
 	$sourcePath = $currentLocalizationPath + $itemName
 	$destinationPath = $localizationPath + $itemName
 	if (Test-Path $destinationPath) {
-		if ((Get-Checksum $destinationPath) -eq (Get-Checksum $sourcePath)) {
+		$destCh = (Get-Checksum $destinationPath)
+		$sourceCh = (Get-Checksum $sourcePath)
+		if ($sourceCh -eq $destCh) {
+			write-host $destinationPath + " -- SOURCE: "+$sourcePath 
 			$itemDeleted = $false
-			$item = $localizationFolderProjectItem.ProjectItems.Item($itemName)
-			for ($1=1; $i -le 5; $i++) {
-				try {
-					$item.Delete()
-					$itemDeleted = $true
-					break
+			try {
+				$item = $localizationFolderProjectItem.ProjectItems.Item($itemName)
+			
+				for ($i=1; $i -le 5; $i++) {
+					try {
+						$item.Delete()
+						$itemDeleted = $true
+						break
+					}
+					catch {
+						# Try again in 200ms
+						[System.Threading.Thread]::Sleep(200)
+					}
 				}
-				catch {
-					# Try again in 200ms
-					[System.Threading.Thread]::Sleep(200)
-				}
+			} catch {
 			}
 			if ($itemDeleted -eq $false) {
-				throw "Unable to delete project item after five attempts."
+				throw "Unable to delete $itemName after five attempts."
 			}
 		}
 	}
