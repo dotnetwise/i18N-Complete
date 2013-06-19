@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>i18N-Complete</id>
+    <id>i18N-CompleteL</id>
     <title>i18N-Complete</title>
     <version>0.1.x.x</version>
     <authors>Laurentiu Macovei, DotNetWise</authors>
@@ -38,8 +38,5 @@
       <frameworkAssembly assemblyName="System.Configuration" targetFramework="net40, net45" />
       <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="net40, net45" />
     </frameworkAssemblies>
-    <references>
-      <reference file="i18NComplete.dll"  />
-    </references>
   </metadata>
 </package>

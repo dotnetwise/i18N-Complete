@@ -1,6 +1,9 @@
 ﻿#First some common params, delivered by the nuget package installer
 param($installPath, $toolsPath, $package, $project)
 Set-PsDebug -trace 2
+
+. (Join-Path $toolsPath common.ps1)
+
 $buildProject = Get-MSBuildProject
 
 $target = $buildProject.Xml.Targets | 
@@ -8,8 +11,14 @@ $target = $buildProject.Xml.Targets |
 if($target -ne $null)
 {
     $buildProject.Xml.RemoveChild($target)
-	throw "Removed Localization!"
+	Write-Host "Removed Localization!"
 }
+
+for ($i=0; $i -lt $filesArray.length; $i++)
+{
+	Delete-ProjectItem $filesArray[$i]
+}
+
 
 # Save the buildproject
 $buildProject.Save()

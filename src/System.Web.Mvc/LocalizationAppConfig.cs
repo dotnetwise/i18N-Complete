@@ -17,12 +17,12 @@ namespace System.Globalization
 		static LocalizationAppConfig()
 		{
             var app = ConfigurationManager.AppSettings;
-            SupportedLanguages = (app["SupportedLanguages"] ?? string.Empty).Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
+            SupportedLanguages = (app["SupportedLanguages"] ?? "en,ro,de").Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(d => d.Trim())
                 .Where(d => !string.IsNullOrEmpty(d))
                 .ToArray();
             SupportedLanguages = SupportedLanguages.Contains("*") ? SupportedLanguages.Take(0).ToArray() : SupportedLanguages;
-            LocalizationLoadComments = IsTrue(app["LocalizationLoadComments"]);
+            LocalizationLoadComments = IsTrue(app["LocalizationLoadComments"], true);
         }
 
         /// <summary>Returns true if the value is 1 or true, or default value if null or string.Empty, otherwise false</summary>

@@ -41,6 +41,8 @@ namespace System.Globalization
 			MsgID = "";
 			MsgStr = "";
 			Contexts = new List<string>();
+            TranslatorComments = new List<string>();
+            ExtractedComments = new List<string>();
 		}
 
 		/// <summary>Create a new Message, setting the msgID to the supplied value</summary>
