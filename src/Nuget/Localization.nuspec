@@ -38,8 +38,5 @@
       <frameworkAssembly assemblyName="System.Configuration" targetFramework="net40, net45" />
       <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="net40, net45" />
     </frameworkAssemblies>
-    <references>
-      <reference file="i18NComplete.dll"  />
-    </references>
   </metadata>
 </package>

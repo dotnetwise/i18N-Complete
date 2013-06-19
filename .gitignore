@@ -108,3 +108,4 @@ Backup*/
 UpgradeLog*.XML
 /src/.nuget
 /build
+/src/Nuget/lib/i18NComplete.XML
