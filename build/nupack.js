@@ -38,7 +38,7 @@ asyncblock(function (flow) {
 		//var dependencyRegex = /(<dependency id="GNU.*?)(" version="1.18)(.*?)(" \/>)/gi;
 		//var nameRegex = /(<title>)(.*)(<\/title)/gi;
 		//var idRegex = /(<id>)(.*)(<\/id>)/gi;
-		var fileRegex = /(\<file src=\")/gi;
+		//var fileRegex = /(\<file src=\")/gi;
 		var date = new Date();
 		var idPrefix = "20";
 		var namePrefix = " 2.0"
@@ -48,7 +48,7 @@ asyncblock(function (flow) {
 		//content = content.replace(dependencyRegex, "$1{0}$2.{1}.{2}$4".format(idPrefix, revision, build));
 		//content = content.replace(nameRegex, "$1$2{0}$3".format(namePrefix));
 		//content = content.replace(idRegex, "$1$2{0}$3".format(idPrefix));
-		content = content.replace(fileRegex, "$1{0}\\".format(path.normalize(path.dirname(input))));
+		//content = content.replace(fileRegex, "$1{0}\\".format(path.normalize(path.dirname(input))));
 		var output = "build."+ path.basename(input), content;
 		process.chdir(path.dirname(input));
 		fs.writeFileSync(output, content);

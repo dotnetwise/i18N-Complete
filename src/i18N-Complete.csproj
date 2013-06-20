@@ -130,9 +130,10 @@
     <Compile Include="System.Web.Mvc\HtmlPropertiesAttribute.cs" />
     <Compile Include="System.Web.Mvc\LocalizedMvcRouteHandler.cs" />
     <Compile Include="System.Web.Mvc\LocalizedViewEngine.cs" />
-    <Compile Include="System.Web.Mvc\LocalizationAppConfig.cs" />
+    <Compile Include="System.Globalization\LocalizationAppConfig.cs" />
     <Compile Include="System.Web.Mvc\MvcExtendedMethods.cs" />
     <Compile Include="System.Web.Mvc\RouteInfo.cs" />
+    <None Include="nuget\Localization.Mvc.nuspec" />
     <None Include="nuget\tools\common.ps1" />
     <None Include="nuget\tools\Properties\Localization\Localize.bat" />
     <None Include="nuget\tools\Properties\Localization\messages.de.po" />

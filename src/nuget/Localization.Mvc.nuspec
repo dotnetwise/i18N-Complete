@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>i18N-Complete</id>
-    <title>i18N-Complete</title>
+    <id>i18N-Complete-MVC4</id>
+    <title>i18N-Complete MVC4</title>
     <version>0.1.x.x</version>
     <authors>Laurentiu Macovei, DotNetWise</authors>
     <owners>DotNetWise</owners>
@@ -11,7 +11,7 @@
     <iconUrl>http://www.dotnetwise.com/Icons/Nuget/Localization.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      i18N-Complete localization core Module.
+      i18N-Complete ASP.NET MVC 4 tools.
       Real world i18N - .po based localization for Javascript, ASP.NET MVC 4, and ASP.NET WebForms.
     </description>
     <summary>
@@ -29,20 +29,17 @@
     <copyright>Copyright © DotNetWise 2013</copyright>
     <tags>localization javascript asp.net mvc i18N po globalization internationalization mvc4</tags>
     <dependencies>
-      <dependency id="GNU.Tools" version="0.18.1" />
-      <dependency id="Microsoft.AspNet.Mvc" version="4.0.30506.0" />
-      <dependency id="Microsoft.AspNet.WebPages" version="2.0.30506.0" />
+      <dependency id="NuGetPowerTools" version="0.26" />
+      <dependency id="i18N-Complete" version="0.1" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Web" targetFramework="net40, net45" />
       <frameworkAssembly assemblyName="System.Configuration" targetFramework="net40, net45" />
       <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="net40, net45" />
     </frameworkAssemblies>
-    <references>
-      <reference file="i18NComplete.dll"/>
-    </references>
   </metadata>
   <files>
-    <file src="lib\" target="lib" />
+    <file src="content\" target="content" />
+    <file src="tools\" target="tools" />
   </files>
 </package>
