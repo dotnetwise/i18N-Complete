@@ -29,7 +29,7 @@
     <copyright>Copyright © DotNetWise 2013</copyright>
     <tags>localization javascript asp.net mvc i18N po globalization internationalization mvc4</tags>
     <dependencies>
-      <dependency id="GNU.Tools" version="0.18.1" />
+      <dependency id="GNU.Tools" version="1.18" />
       <dependency id="Microsoft.AspNet.Mvc" version="4.0.30506.0" />
       <dependency id="Microsoft.AspNet.WebPages" version="2.0.30506.0" />
     </dependencies>

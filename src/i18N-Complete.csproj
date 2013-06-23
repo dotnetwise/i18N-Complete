@@ -133,7 +133,9 @@
     <Compile Include="System.Globalization\LocalizationAppConfig.cs" />
     <Compile Include="System.Web.Mvc\MvcExtendedMethods.cs" />
     <Compile Include="System.Web.Mvc\RouteInfo.cs" />
-    <None Include="nuget\Localization.Mvc.nuspec" />
+    <None Include="nuget\Localization.Mvc.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="nuget\tools\common.ps1" />
     <None Include="nuget\tools\Properties\Localization\Localize.bat" />
     <None Include="nuget\tools\Properties\Localization\messages.de.po" />
@@ -142,7 +144,9 @@
     <None Include="nuget\tools\Properties\Localization\newmessages.pot" />
     <None Include="nuget\content\Views\Localization\Index.cshtml" />
     <None Include="nuget\content\Views\Web.config.transform" />
-    <None Include="nuget\Localization.nuspec" />
+    <None Include="nuget\Localization.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="nuget\tools\Install.ps1" />
     <None Include="nuget\tools\uninstall.ps1" />
   </ItemGroup>

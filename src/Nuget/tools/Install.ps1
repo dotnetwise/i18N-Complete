@@ -14,6 +14,7 @@ $target = $buildProject.Xml.AddTarget("Localization")
 # You don't need to call your target from the beforebuild target,
 # just state it using the BeforeTargets attribute
 $target.BeforeTargets = "BeforeBuild"
+$target.Condition = "'`$`(Configuration`)' == 'Release'"
 
 # Add your task to the newly created target
 $task = $target.AddTask("Exec")

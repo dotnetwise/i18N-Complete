@@ -25,7 +25,10 @@
       * Need plural expression? No prolbem! @_s("I have one car", "I have {0} cars", model.Count)
       ..and much more!
     </summary>
-    <releaseNotes>First release</releaseNotes>
+    <releaseNotes>
+      * Enhanced referenced localized files from .po files to be relative to the solution
+      * Disabled warnings by default. Enable them by `Localize.bat warn`
+    </releaseNotes>
     <copyright>Copyright © DotNetWise 2013</copyright>
     <tags>localization javascript asp.net mvc i18N po globalization internationalization mvc4</tags>
     <dependencies>
