@@ -26,6 +26,8 @@
       ..and much more!
     </summary>
     <releaseNotes>
+      * Added MergeRouteValues, GetVirtualPathData
+      * Added LinkA and ActionLinkA automatically include `scheme` || `protocol` and `hostname` from route's DataTokens
       * Enhanced referenced localized files from .po files to be relative to the solution
       * Disabled warnings by default. Enable them by `Localize.bat warn`
     </releaseNotes>
