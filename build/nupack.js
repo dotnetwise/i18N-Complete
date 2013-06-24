@@ -1,6 +1,6 @@
 /// <reference path="nodelib/node.js" />
 /// <reference path="node_modules/glob/glob.js " />
-var sourceMatch = "../src/Nuget/*.nuspec";
+var sourceMatch = "../src/Nuget/**/*.nuspec";
 
 if (!String.prototype.format) {
 	String.prototype.format = function () {
