@@ -26,7 +26,12 @@ namespace System.Globalization
 		/// <created author="laurentiu.macovei" date="Fri, 06 Jan 2012 23:47:10 GMT"/>
 		public static string _(this CultureInfo culture, string text,params object[] arguments)
 		{
-			return string.Format(I18NComplete.GetText(text, lcid: culture.LCID), arguments);
+			var result = string.Format(I18NComplete.GetText(text, lcid: culture.LCID), arguments);
+            return
+#if DEBUG
+ I18NComplete.OnGetting_(result, culture, text, arguments) ??
+#endif
+ result;
 		}
 		/// <summary>
 		/// 	<para>@Alias <c>_</c> and <c>Format</c></para>

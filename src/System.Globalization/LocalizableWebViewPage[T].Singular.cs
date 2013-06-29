@@ -24,7 +24,13 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:54 GMT"/>
 		public static string _(string text, params object[] arguments)
 		{
-			return string.Format(I18NComplete.GetText(text), arguments);
+			var result = string.Format(I18NComplete.GetText(text), arguments);
+            return
+#if DEBUG
+ I18NComplete.OnGetting_(result, CultureInfo.CurrentCulture, text, arguments) ??
+#endif
+ result;
+
 		}
 
 		/// <summary>

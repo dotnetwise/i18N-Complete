@@ -128,15 +128,18 @@ namespace System.Globalization
 		}
         public static event GettingTextEventHandler GettingText;
         public delegate string GettingTextEventHandler(Message msg, string msgID, string translation, string languageCode, int? lcid, bool plural);
-        public static event GettingTextEventHandler Getting_;
-        public static event GettingTextEventHandler Getting__;
-        public static event GettingTextEventHandler Getting___;
+        public static event GettingSingularStringEventHandler Getting_;
+        public static event GettingSingularHtmlEventHandler Getting__;
+        public static event GettingSingularHtmlAllEventHandler Getting___;
         public static event GettingPluralStringEventHandler Getting_s;
         public static event GettingPluralHtmlEventHandler Getting__s;
         public static event GettingPluralHtmlAllEventHandler Getting___s;
         public static event GettingPluralHtmlAllEscapeEventHandler Getting___se;
         public static event GettingQuotedEventHandler Getting__q;
         public static event GettingQuotedAllEventHandler Getting___q;
+        public delegate string GettingSingularStringEventHandler(string defaultResult, CultureInfo culture, string text, params object[] arguments);
+        public delegate MvcHtmlString GettingSingularHtmlEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string html, params object[] arguments);
+        public delegate MvcHtmlString GettingSingularHtmlAllEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string html, params object[] htmlArguments);
         public delegate string GettingPluralStringEventHandler(string defaultResult, CultureInfo culture, string singular, string plural, int count, params object[] arguments);
         public delegate MvcHtmlString GettingPluralHtmlEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string singularHTML, string pluralHTML, int count, params object[] arguments);
         public delegate MvcHtmlString GettingPluralHtmlAllEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string singularHTML, string pluralHTML, int count, params object[] argumentsHTML);
@@ -192,6 +195,13 @@ namespace System.Globalization
             return null;
         }
 
+        internal static string OnGetting_(string defaultResult, CultureInfo culture, string text, object[] arguments)
+        {
+            if (Getting_!= null)
+                return Getting_(defaultResult, culture, text, arguments);
+            return null;
+        }
+
 		/// <summary>
 		/// </summary>
 		/// <param name="cultureName"></param>
@@ -235,8 +245,6 @@ namespace System.Globalization
 		}
 
 		#endregion
-
-
-       
+        
     }
 }
