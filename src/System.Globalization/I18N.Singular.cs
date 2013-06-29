@@ -117,8 +117,14 @@ namespace System.Globalization
 		/// <created author="laurentiu.macovei" date="Fri, 06 Jan 2012 23:49:22 GMT"/>
 		public static MvcHtmlString __(this CultureInfo culture,string html, params object[] arguments)
 		{
-			return new MvcHtmlString(string.Format(I18NComplete.GetText(html, lcid: culture.LCID),
+			var result = new MvcHtmlString(string.Format(I18NComplete.GetText(html, lcid: culture.LCID),
 				arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray()));
+            return
+#if DEBUG
+ I18NComplete.OnGetting__(result, culture, html, arguments) ??
+#endif
+ result;
+
 		}
 		/// <summary>
 		/// 	<para>@Alias <c>__</c> and <c>FormatHtml</c></para>

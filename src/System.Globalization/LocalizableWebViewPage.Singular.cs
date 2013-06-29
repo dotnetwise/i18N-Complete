@@ -69,9 +69,14 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:45 GMT"/>
 		public static MvcHtmlString __(string html, params object[] arguments)
 		{
-			return new MvcHtmlString(string.Format(I18NComplete.GetText(html),
+			var result = new MvcHtmlString(string.Format(I18NComplete.GetText(html),
 				arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray()));
-		}
+            return
+#if DEBUG
+ I18NComplete.OnGetting__(result, CultureInfo.CurrentCulture, html, arguments) ??
+#endif
+ result;
+        }
 		/// <summary>
 		/// 	<para>@Alias <c>__</c> and <c>FormatHtml</c></para>
 		/// 	<para>Translates the given html applying string.Format(html, arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))) to the current culture language. </para>

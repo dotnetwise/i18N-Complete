@@ -202,6 +202,13 @@ namespace System.Globalization
             return null;
         }
 
+        internal static MvcHtmlString OnGetting__(MvcHtmlString defaultResult, CultureInfo culture, string text, object[] arguments)
+        {
+            if (Getting__ != null)
+                return Getting__(defaultResult, culture, text, arguments);
+            return null;
+        }
+
 		/// <summary>
 		/// </summary>
 		/// <param name="cultureName"></param>
