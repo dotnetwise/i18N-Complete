@@ -33,7 +33,7 @@ namespace $rootnamespace$.Controllers
             LocalizationAppConfig.LocalizationLoadComments = true;
             sb.AppendLine("var appConfig = appConfig || {};");
             sb.AppendLine("appConfig.messages = {");
-            foreach (var msg in Internationalization.Localizations[lcid].Messages.Values)
+            foreach (var msg in I18NComplete.Localizations[lcid].Messages.Values)
                 if (string.IsNullOrEmpty(include) || msg.Contexts.Any(c => c.Contains(include)))
                 {
                     sb.Append("\t").Append(msg.MsgID.js()).Append(": {");

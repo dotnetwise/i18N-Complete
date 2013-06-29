@@ -116,7 +116,7 @@
     <Compile Include="System.Globalization\Attributes.cs" />
     <Compile Include="System.Globalization\I18N.Plural.cs" />
     <Compile Include="System.Globalization\I18N.Singular.cs" />
-    <Compile Include="System.Globalization\Internationalization.cs" />
+    <Compile Include="System.Globalization\I18NComplete.cs" />
     <Compile Include="System.Globalization\LocalizableController.Plural.cs" />
     <Compile Include="System.Globalization\LocalizableController.Singular.cs" />
     <Compile Include="System.Globalization\LocalizableWebViewPage.Plural.cs" />
@@ -165,7 +165,11 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)\$(TargetName).* $(ProjectDir)\nuget\lib\ &gt;nul
+    <PostBuildEvent>IF $(ConfigurationName)=="Debug" (
+copy $(TargetDir)\$(TargetName).* $(ProjectDir)\nuget\lib\ &gt;nul
+) ELSE (
+copy $(TargetDir)\$(TargetName).* $(ProjectDir)\nuget\lib\release\ &gt;nul
+)
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

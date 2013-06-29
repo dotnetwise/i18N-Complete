@@ -24,7 +24,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:54 GMT"/>
 		public static string _(string text, params object[] arguments)
 		{
-			return string.Format(Internationalization.GetText(text), arguments);
+			return string.Format(I18NComplete.GetText(text), arguments);
 		}
 
 		/// <summary>
@@ -38,7 +38,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 17:52:04 GMT"/>
 		public static string GetString(string text, params object[] arguments)
 		{
-			return string.Format(Internationalization.GetText(text), arguments);
+			return string.Format(I18NComplete.GetText(text), arguments);
 		}
 		/// <summary>
 		/// 	<para>@Alias <c>_</c> and <c>GetString</c></para>
@@ -51,7 +51,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:49 GMT"/>
 		public static string Format(string text, params object[] arguments)
 		{
-			return string.Format(Internationalization.GetText(text), arguments);
+			return string.Format(I18NComplete.GetText(text), arguments);
 		}
 
 		/// <summary>
@@ -65,7 +65,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:45 GMT"/>
 		public static MvcHtmlString __(string html, params object[] arguments)
 		{
-			return new MvcHtmlString(string.Format(Internationalization.GetText(html),
+			return new MvcHtmlString(string.Format(I18NComplete.GetText(html),
 				arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray()));
 		}
 
@@ -80,7 +80,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:32 GMT"/>
 		public static MvcHtmlString GetHtml(string html, params object[] arguments)
 		{
-			return new MvcHtmlString(string.Format(Internationalization.GetText(html),
+			return new MvcHtmlString(string.Format(I18NComplete.GetText(html),
 				arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray()));
 		}
 		/// <summary>
@@ -94,7 +94,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:02:50 GMT"/>
 		public static MvcHtmlString FormatHtml(string html, params object[] arguments)
 		{
-			return new MvcHtmlString(string.Format(Internationalization.GetText(html),
+			return new MvcHtmlString(string.Format(I18NComplete.GetText(html),
 				arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray()));
 		}
 
@@ -109,7 +109,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:12:40 GMT"/>
 		public static MvcHtmlString ___(string html, params object[] htmlArguments)
 		{
-			return new MvcHtmlString(string.Format(Internationalization.GetText(html), htmlArguments));
+			return new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments));
 		}
 		/// <summary>
 		/// 	<para>Quotes the text as the xgettext cannot correctly extract values from attributes</para>
@@ -123,7 +123,12 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Fri, 13 Jan 2012 03:55:43 GMT"/>
 		public static MvcHtmlString __q(string html, params object[] arguments)
 		{
-			return new MvcHtmlString('"' + HttpUtility.HtmlAttributeEncode(string.Format(Internationalization.GetText(html), arguments == null || arguments.Length == 0 ? arguments : arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray())) + '"');
+			var result = new MvcHtmlString('"' + HttpUtility.HtmlAttributeEncode(string.Format(I18NComplete.GetText(html), arguments == null || arguments.Length == 0 ? arguments : arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray())) + '"');
+            return
+#if DEBUG
+ I18NComplete.OnGetting__q(result, CultureInfo.CurrentCulture, html, arguments) ??
+#endif
+ result;
 		}
 		/// <summary>
 		/// 	<para>Quotes the text as the xgettext cannot correctly extract values from attributes</para>
@@ -132,12 +137,18 @@ namespace System.Web.Mvc
 		/// 	<para>Usage: &lt;div title=@___q("&lt; class='tip'&gt;There are {0} {1} in cart.&lt;/div&gt;", 3, "&lt;b&gt;Items&lt;/b&gt;")&gt;...  -- Note the missing quotes!</para>
 		/// </summary>
 		/// <param name="html">The html to be translated</param>
-		/// <param name="arguments">Custom arguments list to be passed to string.Format</param>
+		/// <param name="htmlArguments">Custom arguments list to be passed to string.Format</param>
 		/// <returns>The translated formatted html as MvcHtmlString</returns>
 		/// <created author="laurentiu.macovei" date="Fri, 13 Jan 2012 03:55:43 GMT"/>
-		public static MvcHtmlString ___q(string html, params object[] arguments)
+		public static MvcHtmlString ___q(string html, params object[] htmlArguments)
 		{
-			return new MvcHtmlString('"' + HttpUtility.HtmlAttributeEncode(string.Format(Internationalization.GetText(html), arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray())) + '"');
+			var result = new MvcHtmlString('"' + HttpUtility.HtmlAttributeEncode(string.Format(I18NComplete.GetText(html), htmlArguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray())) + '"');
+            return
+#if DEBUG
+ I18NComplete.OnGetting___q(result, CultureInfo.CurrentCulture, html, htmlArguments) ??
+#endif
+ result;
+
 		}
 
 		/// <summary>
@@ -151,7 +162,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:15:15 GMT"/>
 		public static MvcHtmlString GetRaw(string html, params object[] htmlArguments)
 		{
-			return new MvcHtmlString(string.Format(Internationalization.GetText(html), htmlArguments));
+			return new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments));
 		}
 
 		/// <summary>
@@ -165,7 +176,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Fri, 13 Jan 2012 03:55:43 GMT"/>
 		public static MvcHtmlString FormatRaw(string html, params object[] htmlArguments)
 		{
-			return new MvcHtmlString(string.Format(Internationalization.GetText(html), htmlArguments));
+			return new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments));
 		}
 
 		/// <summary>
@@ -180,7 +191,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:47:27 GMT"/>
 		public static MvcHtmlString ___(string text, Func<object, string> escapeArgumentFunc, params object[] arguments)
 		{
-			return new MvcHtmlString(string.Format(escapeArgumentFunc(Internationalization.GetText(text)), arguments
+			return new MvcHtmlString(string.Format(escapeArgumentFunc(I18NComplete.GetText(text)), arguments
 				.Select(a => escapeArgumentFunc(a)).ToArray()));
 		}
 		/// <summary>
@@ -195,7 +206,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:47:17 GMT"/>
 		public static MvcHtmlString GetRaw(string text, Func<object, object> escapeArgumentFunc, params object[] arguments)
 		{
-			return new MvcHtmlString(string.Format(Internationalization.GetText(text), arguments
+			return new MvcHtmlString(string.Format(I18NComplete.GetText(text), arguments
 				.Select(a => escapeArgumentFunc(a)).ToArray()));
 		}
 
@@ -211,7 +222,7 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:25:01 GMT"/>
 		public static MvcHtmlString FormatRaw(string text, Func<object, object> escapeArgumentFunc, params object[] arguments)
 		{
-			return new MvcHtmlString(string.Format(Internationalization.GetText(text), arguments
+			return new MvcHtmlString(string.Format(I18NComplete.GetText(text), arguments
 				.Select(a => escapeArgumentFunc(a)).ToArray()));
 		}
 	}
