@@ -195,8 +195,8 @@ namespace System.Web.Mvc
         {
             var result = new MvcHtmlString(
                 (htmlArguments == null || htmlArguments.Length == 0)
-                ? string.Format(count == 1 ? escapeArgumentFunc(I18NComplete.GetText(singularHTML)) : escapeArgumentFunc(I18NComplete.GetText(singularHTML, plural: true)), escapeArgumentFunc(count))
-                : string.Format(count == 1 ? escapeArgumentFunc(I18NComplete.GetText(singularHTML)) : escapeArgumentFunc(I18NComplete.GetText(singularHTML, plural: true)),
+                ? string.Format(count == 1 ? I18NComplete.GetText(singularHTML) : I18NComplete.GetText(singularHTML, plural: true), escapeArgumentFunc(count))
+                : string.Format(count == 1 ? I18NComplete.GetText(singularHTML) : I18NComplete.GetText(singularHTML, plural: true),
                 new object[] { escapeArgumentFunc(count) }.Concat(htmlArguments.Select(a => escapeArgumentFunc(a))).ToArray()));
             return
 #if DEBUG

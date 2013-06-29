@@ -131,6 +131,7 @@ namespace System.Globalization
         public static event GettingSingularStringEventHandler Getting_;
         public static event GettingSingularHtmlEventHandler Getting__;
         public static event GettingSingularHtmlAllEventHandler Getting___;
+        public static event GettingSingularHtmlAllEscapeEventHandler Getting___e;
         public static event GettingPluralStringEventHandler Getting_s;
         public static event GettingPluralHtmlEventHandler Getting__s;
         public static event GettingPluralHtmlAllEventHandler Getting___s;
@@ -140,6 +141,7 @@ namespace System.Globalization
         public delegate string GettingSingularStringEventHandler(string defaultResult, CultureInfo culture, string text, params object[] arguments);
         public delegate MvcHtmlString GettingSingularHtmlEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string html, params object[] arguments);
         public delegate MvcHtmlString GettingSingularHtmlAllEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string html, params object[] htmlArguments);
+        public delegate MvcHtmlString GettingSingularHtmlAllEscapeEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string html, Func<object, string> escapeArgumentFunc, params object[] argumentsHTML);
         public delegate string GettingPluralStringEventHandler(string defaultResult, CultureInfo culture, string singular, string plural, int count, params object[] arguments);
         public delegate MvcHtmlString GettingPluralHtmlEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string singularHTML, string pluralHTML, int count, params object[] arguments);
         public delegate MvcHtmlString GettingPluralHtmlAllEventHandler(MvcHtmlString defaultResult, CultureInfo culture, string singularHTML, string pluralHTML, int count, params object[] argumentsHTML);
@@ -202,12 +204,26 @@ namespace System.Globalization
             return null;
         }
 
-        internal static MvcHtmlString OnGetting__(MvcHtmlString defaultResult, CultureInfo culture, string text, object[] arguments)
+        internal static MvcHtmlString OnGetting__(MvcHtmlString defaultResult, CultureInfo culture, string html, object[] arguments)
         {
             if (Getting__ != null)
-                return Getting__(defaultResult, culture, text, arguments);
+                return Getting__(defaultResult, culture, html, arguments);
             return null;
         }
+
+        internal static MvcHtmlString OnGetting___(MvcHtmlString defaultResult, CultureInfo culture, string html, object[] htmlArguments)
+        {
+            if (Getting___ != null)
+                return Getting___(defaultResult, culture, html, htmlArguments);
+            return null;
+        }
+        internal static MvcHtmlString OnGetting___(MvcHtmlString defaultResult, CultureInfo culture, string html, Func<object, string> escapeArgumentFunc, object[] htmlArguments)
+        {
+            if (Getting___e != null)
+                return Getting___e(defaultResult, culture, html, escapeArgumentFunc, htmlArguments);
+            return null;
+        }
+
 
 		/// <summary>
 		/// </summary>

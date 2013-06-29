@@ -212,8 +212,8 @@ namespace System.Globalization
         {
             var result = new MvcHtmlString(
  ((htmlArguments == null || htmlArguments.Length == 0)
-                ? string.Format(count == 1 ? escapeArgumentFunc(I18NComplete.GetText(singularHTML, lcid: culture.LCID)) : escapeArgumentFunc(I18NComplete.GetText(singularHTML, plural: true, lcid: culture.LCID)), escapeArgumentFunc(count))
-                : string.Format(count == 1 ? escapeArgumentFunc(I18NComplete.GetText(singularHTML, lcid: culture.LCID)) : escapeArgumentFunc(I18NComplete.GetText(singularHTML, plural: true, lcid: culture.LCID)),
+                ? string.Format(count == 1 ? I18NComplete.GetText(singularHTML, lcid: culture.LCID) : I18NComplete.GetText(singularHTML, plural: true, lcid: culture.LCID), escapeArgumentFunc(count))
+                : string.Format(count == 1 ? I18NComplete.GetText(singularHTML, lcid: culture.LCID) : I18NComplete.GetText(singularHTML, plural: true, lcid: culture.LCID),
                 new object[] { escapeArgumentFunc(count) }.Concat(htmlArguments.Select(a => escapeArgumentFunc(a))).ToArray())));
             return
 #if DEBUG

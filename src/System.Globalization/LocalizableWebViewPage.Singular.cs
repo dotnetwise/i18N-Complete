@@ -156,7 +156,12 @@ namespace System.Web.Mvc
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:12:40 GMT"/>
 		public static MvcHtmlString ___(string html, params object[] htmlArguments)
 		{
-			return new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments));
+			var result = new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments));
+            return
+#if DEBUG
+ I18NComplete.OnGetting___(result, CultureInfo.CurrentCulture, html, htmlArguments) ??
+#endif
+ result;
 		}
 		/// <summary>
 		/// 	<para>@Alias <c>___</c> (3 underscores) and <c>FormatRaw</c></para>
@@ -190,15 +195,20 @@ namespace System.Web.Mvc
 		/// 	<para>Translates the given html applying string.Format(html, arguments.Select(a =&gt; escapeArgumentFunc(a))) to the current culture language. </para>
 		/// 	<para>For each argument the escape func will be called before applying the format</para>
 		/// </summary>
-		/// <param name="text">The text to be translated</param>
-		/// <param name="arguments">The html arguments to be applied. For each argument will apply the escape func!</param>
+		/// <param name="html">The text to be translated</param>
+		/// <param name="htmlArguments">The html arguments to be applied. For each argument will apply the escape func!</param>
 		/// <param name="escapeArgumentFunc">The func to be applied for each argument .i.e. <c>a =&gt; HttpUtility.HtmlAttributeEncode(a)</c></param>
 		/// <returns>The translated formatted html as MvcHtmlString</returns>
 		/// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:47:27 GMT"/>
-		public static MvcHtmlString ___(string text, Func<object, string> escapeArgumentFunc, params object[] arguments)
+		public static MvcHtmlString ___(string html, Func<object, string> escapeArgumentFunc, params object[] htmlArguments)
 		{
-			return new MvcHtmlString(string.Format(escapeArgumentFunc(I18NComplete.GetText(text)), arguments
+			var result = new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments
 				.Select(a => escapeArgumentFunc(a)).ToArray()));
+            return
+#if DEBUG
+ I18NComplete.OnGetting___(result, CultureInfo.CurrentCulture, html, escapeArgumentFunc, htmlArguments) ??
+#endif
+ result;
 		}
 		/// <summary>
 		/// 	<para>@Alias <c>___</c> (3 underscores) and <c>FormatRaw</c></para>
