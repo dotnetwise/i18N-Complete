@@ -1004,7 +1004,7 @@ namespace System.Web.Mvc
         /// <summary>
         /// Returns route's virtual path data, including route and DataTokens
         /// </summary>
-        /// <param name="htmlHelper">An URL helper to get the virtual path data for</param>
+        /// <param name="urlHelper">An URL helper to get the virtual path data for</param>
         /// <param name="actionName">The name of the action</param>
         /// <param name="controllerName">The name of the controller</param>
         /// <param name="routeValues">Custom other route values data</param>

@@ -11,17 +11,6 @@ using System.Web;
 
 namespace System.Globalization
 {
-    public enum TranslationKind
-    {
-        _,
-        __,
-        ___,
-        _s,
-        __s,
-        ___s,
-        __q,
-        ___q,
-    }
     /// <summary>A transparent localizable class which represents the properties and methods that are needed in order to render a view that uses ASP.NET Razor syntax.</summary>
     /// <created author="laurentiu.macovei" date="Fri, 06 Jan 2012 23:21:16 GMT"/>
     public static partial class I18N

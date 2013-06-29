@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 namespace System.Globalization
 {
-	/// <summary>The MvcConfig class</summary>
+    /// <summary>The LocalizationAppConfig class holds configurable values for i18NComplete app settings</summary>
 	/// <created author="laurentiu.macovei" date="Thu, 05 Jan 2012 21:55:41 GMT"/>
 	public class LocalizationAppConfig
 	{
@@ -41,8 +41,10 @@ namespace System.Globalization
 
 
 		#region Properties
+        /// <summary>A list with the supported languages. If empty, then any language is assumed supported by default</summary>
         public static readonly string[] SupportedLanguages = new string[0];
 
+        /// <summary>Specify whether to load comments from .po files</summary>
         public static bool LocalizationLoadComments { get; set; }
 
 		#endregion Properties

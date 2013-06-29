@@ -105,11 +105,15 @@ namespace System.Globalization
 		public string MsgStr_Plural { get; set; }
 
 		/// <summary>
-		/// <para>A list of comments found with this message in its .po file.</para>
+		/// <para>A list of translator's comments found with this message in its .po file.</para>
 		/// <para>Will only be populated if the loadComments flag is set while loading the Localization.</para>
 		/// </summary>
 		/// <created author="laurentiu.macovei" date="Fri, 25 Nov 2011 16:47:59 GMT"/>
 		public List<string> TranslatorComments { get; set; }
+        /// <summary>
+        /// <para>A list of comments found with this message in its .po file (i.e. location where the message was found)</para>
+        /// <para>Will only be populated if the loadComments flag is set while loading the Localization.</para>
+        /// </summary>
         public List<string> ExtractedComments { get; set; }
 
 
