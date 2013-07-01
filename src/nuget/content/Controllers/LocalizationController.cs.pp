@@ -10,34 +10,39 @@ using System.Web.Mvc;
 
 namespace $rootnamespace$.Controllers
 {
-    public class LocalizationController
-        : LocalizableController
+    public partial class LocalizationController : LocalizableController
     {
-        public ActionResult Help(int? id)
+        #region Methods
+
+        public virtual ActionResult Help(int? id)
         {
             return View();
         }
 
-        private static void SwitchCulture(string cultureName)
+        public virtual ContentResult Index(string lang = "en", params string[] includes)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
-        }
+			//You might need to pick the correct domain from config i.e. AppConfig.WebsiteDomain or ConfigurationManager.AppSettings["WebsiteDomain"]
+			var domain = this.ControllerContext.HttpContext.Request.Url.DnsSafeHost
 
-        public ContentResult Index(string lang = "en", string include = ".js:")
-        {
+
             SwitchCulture(lang);
             var culture = CultureInfo.CurrentCulture;
             var lcid = culture.LCID;
             var sb = new StringBuilder();
             LocalizationAppConfig.LocalizationLoadComments = true;
             sb.AppendLine("var appConfig = appConfig || {};");
+            sb.Append("appConfig.domain = ").Append(domain.js()).AppendLine(";");
+            sb.Append("appConfig.testBaseUrl = ").Append(this.ControllerContext.HttpContext.Server.MapPath("~/app").js()).AppendLine(";");
+            sb.Append("appConfig.lang = ").Append(lang.js()).AppendLine(";");
+            sb.Append("appConfig.ssl = ").Append(FormsAuthentication.RequireSSL ? "true" : "false").AppendLine(";");
+            sb.Append("appConfig.userInfoUrl = ").Append(Url.ActionA("Info", "User", "Account").js()).AppendLine(";");
+
             sb.AppendLine("appConfig.messages = {");
             foreach (var msg in I18NComplete.Localizations[lcid].Messages.Values)
-                if (string.IsNullOrEmpty(include) || msg.Contexts.Any(c => c.Contains(include)))
+                if (includes == null || includes.Length == 0 || msg.Contexts.Any(c => includes.Any(i => c.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0)))
                 {
                     sb.Append("\t").Append(msg.MsgID.js()).Append(": {");
-                    _("xyz paul {0}", 123);
+
                     if (msg.Translated || msg.HasPlural)
                     {
                         if (msg.HasPlural)
@@ -61,5 +66,12 @@ namespace $rootnamespace$.Controllers
             return Content(sb.ToString(), "text/javascript");
         }
 
+        internal static void SwitchCulture(string cultureName)
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
+        }
+
+        #endregion Methods of LocalizationController (3)
     }
 }
