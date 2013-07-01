@@ -8,42 +8,40 @@ using System.Linq;
 
 namespace System.ComponentModel.DataAnnotations
 {
-	/// <summary>The CreditCardAttribute class</summary>
-	/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:51 GMT"/>
+    /// <summary>A localized version of the CreditCardAttribute</summary>
+    /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:51 GMT"/>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class CreditCardAttribute 
-	: DataTypeAttribute
+    public class CreditCardAttribute
+    : DataTypeAttribute
     {
-		/// <summary>Creates a new instance of CreditCardAttribute</summary>
-		/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:52 GMT"/>
+        /// <summary>Creates a new instance of CreditCardAttribute</summary>
+        /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:52 GMT"/>
         public CreditCardAttribute()
-			: this("The {0} field is not a valid credit card number..")
+            : this("The {0} field is not a valid credit card number..")
         {
         }
-		/// <summary>Creates a new instance of CreditCardAttribute</summary>
-		/// <param name="errorMessage"></param>
-		/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:52 GMT"/>
-		public CreditCardAttribute(string errorMessage)
-			: base("creditcard")
-		{
-			this.ErrorMessage = errorMessage;
-		}
+        /// <summary>Creates a new instance of CreditCardAttribute</summary>
+        /// <param name="errorMessage"></param>
+        /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:52 GMT"/>
+        public CreditCardAttribute(string errorMessage)
+            : base("creditcard")
+        {
+            this.ErrorMessage = errorMessage;
+        }
 
-		/// <summary>
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:52 GMT"/>
+        /// <summary>Applies formatting to an error message, based on the data field where the error occurred.</summary>
+        /// <param name="name">The name to include in the formatted message.</param>
+        /// <returns>The localized formatted error message</returns>
+        /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:52 GMT"/>
         public override string FormatErrorMessage(string name)
         {
-			return CultureInfo.CurrentCulture.Format(this.ErrorMessage, name);
+            return CultureInfo.CurrentCulture.Format(this.ErrorMessage, name);
         }
 
-		/// <summary>
-		/// </summary>
-		/// <param name="value"></param>
-		/// <returns></returns>
-		/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:52 GMT"/>
+        /// <summary>Determines whether the specified value of the object is valid.</summary>
+        /// <param name="value">The value of the object to validate.</param>
+        /// <returns>true if the specified value is valid; otherwise, false.</returns>
+        /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:52 GMT"/>
         public override bool IsValid(object value)
         {
             if (value == null)

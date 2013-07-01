@@ -5,26 +5,20 @@ using System.Web.Mvc.ClientValidation.Rules;
 
 namespace System.Web.Mvc.ClientValidation.Adapters
 {
-    /// <summary>
-    ///  Provides a model validator for a specified validation file extensions type.
-    /// </summary>
+    /// <summary>Provides a model validator for a specified validation file extensions type.</summary>
     public class FileExtensionsAttributeAdapter : DataAnnotationsModelValidator<FileExtensionsAttribute>
     {
-        /// <summary>
-        /// Creates a new FileExtensionsAttributeAdapter
-        /// </summary>
-        /// <param name="metadata"></param>
-        /// <param name="context"></param>
-        /// <param name="attribute"></param>
+        /// <summary>Initializes a new instance of the System.Web.Mvc.DataAnnotationsModelValidator with the FileExtensionsAttribute</summary>
+        /// <param name="metadata">The metadata for the model.</param>
+        /// <param name="context">The controller context for the model.</param>
+        /// <param name="attribute">The validation attribute for the model.</param>
         public FileExtensionsAttributeAdapter(ModelMetadata metadata, ControllerContext context, FileExtensionsAttribute attribute)
             : base(metadata, context, attribute)
         {
 
         }
-        /// <summary>
-        /// Returns the client validation rules
-        /// </summary>
-        /// <returns></returns>
+        /// <summary>Gets the validation attribute from the model validator.</summary>
+        /// <returns>The validation attribute from the model validator.</returns>
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
             return new[] { new ModelClientValidationFileExtensionsRule(ErrorMessage, Attribute.Extensions) };

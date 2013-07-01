@@ -5,50 +5,48 @@ using System.Web.Mvc.ClientValidation.Rules;
 
 namespace System.Web.Mvc.ClientValidation.Adapters
 {
-	/// <summary>The DigitsAttributeAdapter class</summary>
-	/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:04 GMT"/>
-    public class DigitsAttributeAdapter 
-	: DataAnnotationsModelValidator<DigitsAttribute>
+    /// <summary>Provides a model DigitsAttribute localizable validator for a specified validation type.</summary>
+    /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:04 GMT"/>
+    public class DigitsAttributeAdapter
+        : DataAnnotationsModelValidator<DigitsAttribute>
     {
-		/// <summary>Creates a new instance of DigitsAttributeAdapter</summary>
-		/// <param name="metadata"></param>
-		/// <param name="context"></param>
-		/// <param name="attribute"></param>
-		/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:04 GMT"/>
+        /// <summary>Initializes a new instance of the System.Web.Mvc.DataAnnotationsModelValidator with the DigitsAttribute</summary>
+        /// <param name="metadata">The metadata for the model.</param>
+        /// <param name="context">The controller context for the model.</param>
+        /// <param name="attribute">The validation attribute for the model.</param>
+        /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:04 GMT"/>
         public DigitsAttributeAdapter(ModelMetadata metadata, ControllerContext context, DigitsAttribute attribute)
             : base(metadata, context, attribute)
         {
         }
 
-		/// <summary>
-		/// </summary>
-		/// <returns></returns>
-		/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:05 GMT"/>
+        /// <summary>Gets the validation attribute from the model validator.</summary>
+        /// <returns>The validation attribute from the model validator.</returns>
+        /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:05 GMT"/>
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
             return new[] { new ModelClientValidationDigitsRule(ErrorMessage) };
         }
     }
 
-	/// <summary>The IntegerAttributeAdapter class</summary>
-	/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:05 GMT"/>
-    public class IntegerAttributeAdapter 
-	: DataAnnotationsModelValidator<IntegerAttribute>
+    /// <summary>Provides a model IntegerAttribute localizable validator for a specified validation type.</summary>
+    /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:05 GMT"/>
+    public class IntegerAttributeAdapter
+        : DataAnnotationsModelValidator<IntegerAttribute>
     {
-		/// <summary>Creates a new instance of IntegerAttributeAdapter</summary>
-		/// <param name="metadata"></param>
-		/// <param name="context"></param>
-		/// <param name="attribute"></param>
-		/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:05 GMT"/>
+        /// <summary>Initializes a new instance of the System.Web.Mvc.DataAnnotationsModelValidator with the DigitsAttribute</summary>
+        /// <param name="metadata">The metadata for the model.</param>
+        /// <param name="context">The controller context for the model.</param>
+        /// <param name="attribute">The validation attribute for the model.</param>
+        /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:05 GMT"/>
         public IntegerAttributeAdapter(ModelMetadata metadata, ControllerContext context, IntegerAttribute attribute)
             : base(metadata, context, attribute)
         {
         }
 
-		/// <summary>
-		/// </summary>
-		/// <returns></returns>
-		/// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:05 GMT"/>
+        /// <summary>Gets the validation attribute from the model validator.</summary>
+        /// <returns>The validation attribute from the model validator.</returns>
+        /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:52:05 GMT"/>
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
             return new[] { new ModelClientValidationIntegerRule(ErrorMessage) };

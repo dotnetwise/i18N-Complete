@@ -824,7 +824,7 @@ namespace System.Web.Mvc
             var routeValuesMerged = new RouteValueDictionary() { { "area", area } };
             var vpd = GetVirtualPathData(htmlHelper, actionName, controllerName, routeValuesMerged, true);
             return htmlHelper.ActionLink(linkText, actionName, controllerName,
-                vpd.GetScheme(), vpd.GetHostName(), vpd.GetFragment(), 
+                vpd.GetScheme(), vpd.GetHostName(), vpd.GetFragment(),
                 routeValuesMerged, null);
         }
         /// <summary>
@@ -904,10 +904,10 @@ namespace System.Web.Mvc
             var vpd = GetVirtualPathData(htmlHelper, actionName, controllerName, routeValuesMerged, true);
 
             return htmlHelper.ActionLink(linkText, actionName, controllerName,
-                protocol: vpd.GetScheme(), 
+                protocol: vpd.GetScheme(),
                 hostName: vpd.GetHostName(),
                 fragment: vpd.GetFragment(),
-                htmlAttributes: htmlAttributes, 
+                htmlAttributes: htmlAttributes,
                 routeValues: routeValuesMerged);
         }
 
@@ -1148,7 +1148,7 @@ namespace System.Web.Mvc
             //return url.Action(actionName, controllerName, new RouteValueDictionary() { { "area", area } });
             var routeValuesMerged = new RouteValueDictionary() { { "area", area } };
             var vpd = GetVirtualPathData(url, actionName, controllerName, ref routeValuesMerged, true);
-            
+
             return url.Action(actionName, controllerName, routeValues: routeValuesMerged, protocol: vpd.GetScheme(), hostName: vpd.GetHostName());
         }
         /// <summary>
@@ -1218,7 +1218,7 @@ namespace System.Web.Mvc
         {
             var routeValuesMerged = new RouteValueDictionary(routeValues) { { "area", area } };
             var vpd = GetVirtualPathData(url, actionName, controllerName, ref routeValuesMerged, true);
-            
+
             return url.Action(actionName, controllerName, routeValues: routeValuesMerged, protocol: protocol, hostName: vpd.GetHostName());
         }
 
