@@ -114,7 +114,7 @@ namespace System.Globalization
         /// <param name="lcid">Specify the Culture LCID for faster access if you know it</param>
         /// <param name="plural">Specify whether you want the plural form of it or not</param>
         /// <created author="laurentiu.macovei" date="Fri, 25 Nov 2011 14:55:19 GMT"/>
-        public static string GetText(string msgID, string languageCode = null,
+        internal static string GetText(string msgID, string languageCode = null,
             int? lcid = null, bool plural = false)
         {
             var msg = GetMessage(msgID, languageCode, lcid);
@@ -180,18 +180,18 @@ namespace System.Globalization
         /// <summary>
         ///  <para>Global interceptor event for __s methods.</para>
         /// 	<para>@Alias <c>GetPluralRaw</c> and <c>FormatRawPlural</c></para>
-		/// 	<para>Translates the given singular or plural text/html applying string.Format(count == 1 ? singular : plural, arguments.Select(a =&gt; escapeArgumentFunc(a))) to the current culture language. </para>
-		/// 	<para>For each argument the escape func will be called before applying the format</para>
-		/// </summary>
-		/// <returns>The translated formatted text/HTML as MvcHtmlString</returns>
+        /// 	<para>Translates the given singular or plural text/html applying string.Format(count == 1 ? singular : plural, arguments.Select(a =&gt; escapeArgumentFunc(a))) to the current culture language. </para>
+        /// 	<para>For each argument the escape func will be called before applying the format</para>
+        /// </summary>
+        /// <returns>The translated formatted text/HTML as MvcHtmlString</returns>
         public static event GettingPluralHtmlEventHandler Getting__s;
         /// <summary>
         ///  <para>Global interceptor event for ___s methods.</para>
         /// 	<para>@Alias <c>GetPluralRaw</c> and <c>FormatRawPlural</c></para>
-		/// 	<para>Translates the given singular or plural HTML applying string.Format(html, arguments) to the current culture language. </para>
-		/// 	<para>Warning! Neither the html nor the htmlArguments will be encoded whatsoever</para>
-		/// </summary>
-		/// <returns>The translated formatted HTML as MvcHtmlString</returns>
+        /// 	<para>Translates the given singular or plural HTML applying string.Format(html, arguments) to the current culture language. </para>
+        /// 	<para>Warning! Neither the html nor the htmlArguments will be encoded whatsoever</para>
+        /// </summary>
+        /// <returns>The translated formatted HTML as MvcHtmlString</returns>
         public static event GettingPluralHtmlAllEventHandler Getting___s;
         /// <summary>
         ///  <para>Global interceptor event for ___s methods.</para>
@@ -204,11 +204,11 @@ namespace System.Globalization
         /// <summary>
         ///  <para>Global interceptor event for __q methods.</para>
         /// 	<para>Quotes the text as the xgettext cannot correctly extract values from attributes</para>
-		/// 	<para>Translates the given html applying '"'+HttpUtility.HtmlAttributeEncode(string.Format(html, arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))))+'"' to the current culture language. </para>
-		/// 	<para>The html will be kept as it is, while arguments will be automatically HTML Encoded</para>
-		/// 	<para>Usage: &lt;input type="submit" value=@__q("Save") /&gt;  -- Note the missing quotes!</para>
-		/// </summary>
-		/// <returns>The translated formatted html as MvcHtmlString</returns>
+        /// 	<para>Translates the given html applying '"'+HttpUtility.HtmlAttributeEncode(string.Format(html, arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))))+'"' to the current culture language. </para>
+        /// 	<para>The html will be kept as it is, while arguments will be automatically HTML Encoded</para>
+        /// 	<para>Usage: &lt;input type="submit" value=@__q("Save") /&gt;  -- Note the missing quotes!</para>
+        /// </summary>
+        /// <returns>The translated formatted html as MvcHtmlString</returns>
         public static event GettingQuotedEventHandler Getting__q;
         /// <summary>
         ///  <para>Global interceptor delegate for ___q methods.</para>
@@ -267,13 +267,13 @@ namespace System.Globalization
         /// <summary>
         ///  <para>Global interceptor delegate for _s methods.</para>
         /// 	<para>@Alias <c>GetPluralString</c> and <c>FormatPlural</c></para>
-		/// 	<para>Translates the given singular or plural text applying string.Format(text, arguments) to the current culture language. </para>
-		/// 	<para>The singular/plural text and argument values will be HTML Encoded when used in ASP.NET MVC</para>
-		/// </summary>
-		/// <param name="singular">The text to be translated when count is 1</param>
-		/// <param name="plural">The text to be translated when count is NOT 1</param>
-		/// <param name="count">If count is 1 the singular text will be used, otherwise the plural text</param>
-		/// <param name="arguments">Custom arguments list to be passed to string.Format</param>
+        /// 	<para>Translates the given singular or plural text applying string.Format(text, arguments) to the current culture language. </para>
+        /// 	<para>The singular/plural text and argument values will be HTML Encoded when used in ASP.NET MVC</para>
+        /// </summary>
+        /// <param name="singular">The text to be translated when count is 1</param>
+        /// <param name="plural">The text to be translated when count is NOT 1</param>
+        /// <param name="count">If count is 1 the singular text will be used, otherwise the plural text</param>
+        /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <param name="culture">The culture this translation is being translated</param>
         /// <param name="defaultResult">The I18NComplete default result. Returning null will fallback on this result, otherwise return a custom value to oveerride this.</param>
         /// <returns>The translated formatted text as string</returns>
@@ -296,13 +296,13 @@ namespace System.Globalization
         /// <summary>
         ///  <para>Global interceptor delegate for ___s methods.</para>
         /// 	<para>@Alias <c>GetPluralRaw</c> and <c>FormatRawPlural</c></para>
-		/// 	<para>Translates the given singular or plural HTML applying string.Format(html, arguments) to the current culture language. </para>
-		/// 	<para>Warning! Neither the html nor the htmlArguments will be encoded whatsoever</para>
-		/// </summary>
-		/// <param name="singularHTML">The HTML to be translated when count is 1</param>
-		/// <param name="pluralHTML">The HTML to be translated when count is NOT 1</param>
-		/// <param name="count">If count is 1 the singular HTML will be used, otherwise the plural HTML</param>
-		/// <param name="htmlArguments">The html arguments to be applied. Warning! The arguments will not be htmlEncoded!</param>
+        /// 	<para>Translates the given singular or plural HTML applying string.Format(html, arguments) to the current culture language. </para>
+        /// 	<para>Warning! Neither the html nor the htmlArguments will be encoded whatsoever</para>
+        /// </summary>
+        /// <param name="singularHTML">The HTML to be translated when count is 1</param>
+        /// <param name="pluralHTML">The HTML to be translated when count is NOT 1</param>
+        /// <param name="count">If count is 1 the singular HTML will be used, otherwise the plural HTML</param>
+        /// <param name="htmlArguments">The html arguments to be applied. Warning! The arguments will not be htmlEncoded!</param>
         /// <param name="culture">The culture this translation is being translated</param>
         /// <param name="defaultResult">The I18NComplete default result. Returning null will fallback on this result, otherwise return a custom value to oveerride this.</param>
         /// <returns>The translated formatted HTML as MvcHtmlString</returns>
@@ -325,12 +325,12 @@ namespace System.Globalization
         /// <summary>
         ///  <para>Global interceptor delegate for __q methods.</para>
         /// 	<para>Quotes the text as the xgettext cannot correctly extract values from attributes</para>
-		/// 	<para>Translates the given html applying '"'+HttpUtility.HtmlAttributeEncode(string.Format(html, arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))))+'"' to the current culture language. </para>
-		/// 	<para>The html will be kept as it is, while arguments will be automatically HTML Encoded</para>
-		/// 	<para>Usage: &lt;input type="submit" value=@__q("Save") /&gt;  -- Note the missing quotes!</para>
-		/// </summary>
-		/// <param name="html">The text to be translated</param>
-		/// <param name="arguments">Custom arguments list to be passed to string.Format</param>
+        /// 	<para>Translates the given html applying '"'+HttpUtility.HtmlAttributeEncode(string.Format(html, arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))))+'"' to the current culture language. </para>
+        /// 	<para>The html will be kept as it is, while arguments will be automatically HTML Encoded</para>
+        /// 	<para>Usage: &lt;input type="submit" value=@__q("Save") /&gt;  -- Note the missing quotes!</para>
+        /// </summary>
+        /// <param name="html">The text to be translated</param>
+        /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <param name="culture">The culture this translation is being translated</param>
         /// <param name="defaultResult">The I18NComplete default result. Returning null will fallback on this result, otherwise return a custom value to oveerride this.</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
@@ -351,13 +351,13 @@ namespace System.Globalization
         /// <summary>
         ///  <para>Throws the Getting_s global event</para>
         /// 	<para>@Alias <c>GetPluralString</c> and <c>FormatPlural</c></para>
-		/// 	<para>Translates the given singular or plural text applying string.Format(text, arguments) to the current culture language. </para>
-		/// 	<para>The singular/plural text and argument values will be HTML Encoded when used in ASP.NET MVC</para>
-		/// </summary>
-		/// <param name="singular">The text to be translated when count is 1</param>
-		/// <param name="plural">The text to be translated when count is NOT 1</param>
-		/// <param name="count">If count is 1 the singular text will be used, otherwise the plural text</param>
-		/// <param name="arguments">Custom arguments list to be passed to string.Format</param>
+        /// 	<para>Translates the given singular or plural text applying string.Format(text, arguments) to the current culture language. </para>
+        /// 	<para>The singular/plural text and argument values will be HTML Encoded when used in ASP.NET MVC</para>
+        /// </summary>
+        /// <param name="singular">The text to be translated when count is 1</param>
+        /// <param name="plural">The text to be translated when count is NOT 1</param>
+        /// <param name="count">If count is 1 the singular text will be used, otherwise the plural text</param>
+        /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <param name="culture">The culture this translation is being translated</param>
         /// <param name="defaultResult">The I18NComplete default result. Returning null will fallback on this result, otherwise return a custom value to oveerride this.</param>
         /// <returns>The translated formatted text as string</returns>
@@ -427,15 +427,15 @@ namespace System.Globalization
         /// <summary>
         ///  <para>Throws the Getting__q global event</para>
         /// 	<para>Quotes the text as the xgettext cannot correctly extract values from attributes</para>
-		/// 	<para>Translates the given html applying '"'+HttpUtility.HtmlAttributeEncode(string.Format(html, arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))))+'"' to the current culture language. </para>
-		/// 	<para>The html will be kept as it is, while arguments will be automatically HTML Encoded</para>
-		/// 	<para>Usage: &lt;input type="submit" value=@__q("Save") /&gt;  -- Note the missing quotes!</para>
-		/// </summary>
+        /// 	<para>Translates the given html applying '"'+HttpUtility.HtmlAttributeEncode(string.Format(html, arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))))+'"' to the current culture language. </para>
+        /// 	<para>The html will be kept as it is, while arguments will be automatically HTML Encoded</para>
+        /// 	<para>Usage: &lt;input type="submit" value=@__q("Save") /&gt;  -- Note the missing quotes!</para>
+        /// </summary>
         /// <param name="culture">The culture this translation is being translated</param>
         /// <param name="defaultResult">The I18NComplete default result. Returning null will fallback on this result, otherwise return a custom value to oveerride this.</param>
-		/// <param name="html">The text to be translated</param>
-		/// <param name="arguments">Custom arguments list to be passed to string.Format</param>
-		/// <returns>The translated formatted html as MvcHtmlString</returns>
+        /// <param name="html">The text to be translated</param>
+        /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
+        /// <returns>The translated formatted html as MvcHtmlString</returns>
         internal static MvcHtmlString OnGetting__q(MvcHtmlString defaultResult, CultureInfo culture, string html, params object[] arguments)
         {
             if (Getting__q != null)

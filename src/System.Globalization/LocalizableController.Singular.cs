@@ -22,14 +22,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted text as string</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:54 GMT"/>
+        [NonAction]
         public static string _(string text, params object[] arguments)
         {
-            var result = string.Format(I18NComplete.GetText(text), arguments);
-            return
-#if DEBUG
- I18NComplete.OnGetting_(result, CultureInfo.CurrentCulture, text, arguments) ??
-#endif
- result;
+            return CultureInfo.CurrentUICulture._(text, arguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>_</c> and <c>Format</c></para>
@@ -40,9 +36,10 @@ namespace System.Web.Mvc
         /// <param name="text">The text to be translated</param>
         /// <returns>The translated formatted text as string</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 17:52:04 GMT"/>
+        [NonAction]
         public static string GetString(string text, params object[] arguments)
         {
-            return string.Format(I18NComplete.GetText(text), arguments);
+            return CultureInfo.CurrentUICulture._(text, arguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>_</c> and <c>GetString</c></para>
@@ -53,9 +50,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted text as string</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:49 GMT"/>
+        [NonAction]
         public static string Format(string text, params object[] arguments)
         {
-            return string.Format(I18NComplete.GetText(text), arguments);
+            return CultureInfo.CurrentUICulture._(text, arguments);
         }
 
         /// <summary>
@@ -67,15 +65,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:45 GMT"/>
+        [NonAction]
         public static MvcHtmlString __(string html, params object[] arguments)
         {
-            var result = new MvcHtmlString(string.Format(I18NComplete.GetText(html),
-                arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray()));
-            return
-#if DEBUG
- I18NComplete.OnGetting__(result, CultureInfo.CurrentCulture, html, arguments) ??
-#endif
- result;
+            return CultureInfo.CurrentUICulture.__(html, arguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>__</c> and <c>FormatHtml</c></para>
@@ -86,10 +79,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:00:32 GMT"/>
+        [NonAction]
         public static MvcHtmlString GetHtml(string html, params object[] arguments)
         {
-            return new MvcHtmlString(string.Format(I18NComplete.GetText(html),
-                arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray()));
+            return CultureInfo.CurrentUICulture.__(html, arguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>__</c> and <c>GetHtml</c></para>
@@ -100,10 +93,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:02:50 GMT"/>
+        [NonAction]
         public static MvcHtmlString FormatHtml(string html, params object[] arguments)
         {
-            return new MvcHtmlString(string.Format(I18NComplete.GetText(html),
-                arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray()));
+            return CultureInfo.CurrentUICulture.__(html, arguments);
         }
 
         /// <summary>
@@ -116,15 +109,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Fri, 13 Jan 2012 03:55:43 GMT"/>
+        [NonAction]
         public static MvcHtmlString __q(string html, params object[] arguments)
         {
-            var result = new MvcHtmlString('"' + HttpUtility.HtmlAttributeEncode(string.Format(I18NComplete.GetText(html), arguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray())) + '"');
-            return
-#if DEBUG
- I18NComplete.OnGetting__q(result, CultureInfo.CurrentCulture, html, arguments) ??
-#endif
- result;
-
+            return CultureInfo.CurrentUICulture.__q(html, arguments);
         }
         /// <summary>
         /// 	<para>Quotes the text as the xgettext cannot correctly extract values from attributes</para>
@@ -136,14 +124,10 @@ namespace System.Web.Mvc
         /// <param name="htmlArguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Fri, 13 Jan 2012 03:55:43 GMT"/>
+        [NonAction]
         public static MvcHtmlString ___q(string html, params object[] htmlArguments)
         {
-            var result = new MvcHtmlString('"' + HttpUtility.HtmlAttributeEncode(string.Format(I18NComplete.GetText(html), htmlArguments.Select(a => HttpUtility.HtmlEncode(a)).ToArray())) + '"');
-            return
-#if DEBUG
- I18NComplete.OnGetting___q(result, CultureInfo.CurrentCulture, html, htmlArguments) ??
-#endif
- result;
+            return CultureInfo.CurrentUICulture.__q(html, htmlArguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>GetRaw</c> and <c>FormatRaw</c></para>
@@ -154,14 +138,10 @@ namespace System.Web.Mvc
         /// <param name="htmlArguments">The html arguments to be applied. Warning! The arguments will not be htmlEncoded!</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:12:40 GMT"/>
+        [NonAction]
         public static MvcHtmlString ___(string html, params object[] htmlArguments)
         {
-            var result = new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments));
-             return
-#if DEBUG
- I18NComplete.OnGetting___(result, CultureInfo.CurrentCulture, html, htmlArguments) ??
-#endif
- result;
+            return CultureInfo.CurrentUICulture.___(html, htmlArguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>___</c> (3 underscores) and <c>FormatRaw</c></para>
@@ -172,9 +152,10 @@ namespace System.Web.Mvc
         /// <param name="htmlArguments">The html arguments to be applied. Warning! The arguments will not be htmlEncoded!</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:15:15 GMT"/>
+        [NonAction]
         public static MvcHtmlString GetRaw(string html, params object[] htmlArguments)
         {
-            return new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments));
+            return CultureInfo.CurrentUICulture.___(html, htmlArguments);
         }
 
         /// <summary>
@@ -185,9 +166,10 @@ namespace System.Web.Mvc
         /// <param name="html">The html to be translated</param>
         /// <param name="htmlArguments">The html arguments to be applied. For each argument will apply the escape func!</param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
+        [NonAction]
         public static MvcHtmlString FormatRaw(string html, params object[] htmlArguments)
         {
-            return new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments));
+            return CultureInfo.CurrentUICulture.___(html, htmlArguments);
         }
 
         /// <summary>
@@ -200,30 +182,24 @@ namespace System.Web.Mvc
         /// <param name="escapeArgumentFunc">The func to be applied for each argument .i.e. <c>a =&gt; HttpUtility.HtmlAttributeEncode(a)</c></param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:47:27 GMT"/>
+        [NonAction]
         public static MvcHtmlString ___(string html, Func<object, string> escapeArgumentFunc, params object[] htmlArguments)
         {
-            var result = new MvcHtmlString(string.Format(I18NComplete.GetText(html), htmlArguments
-                .Select(a => escapeArgumentFunc(a)).ToArray()));
-             return
-#if DEBUG
- I18NComplete.OnGetting___(result, CultureInfo.CurrentCulture, html, escapeArgumentFunc, htmlArguments) ??
-#endif
- result;
+            return CultureInfo.CurrentUICulture.___(html, escapeArgumentFunc, htmlArguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>___</c> (3 underscores) and <c>FormatRaw</c></para>
         /// 	<para>Translates the given html applying string.Format(html, arguments.Select(a =&gt; escapeArgumentFunc(a))) to the current culture language. </para>
         /// 	<para>For each argument the escape func will be called before applying the format</para>
         /// </summary>
-        /// <param name="text">The html to be translated</param>
-        /// <param name="arguments">The html arguments to be applied. For each argument will apply the escape func!</param>
+        /// <param name="html">The html to be translated</param>
+        /// <param name="htmlArguments">The html arguments to be applied. For each argument will apply the escape func!</param>
         /// <param name="escapeArgumentFunc">The func to be applied for each argument .i.e. <c>a =&gt; HttpUtility.HtmlAttributeEncode(a)</c></param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:47:17 GMT"/>
-        public static MvcHtmlString GetRaw(string text, Func<object, object> escapeArgumentFunc, params object[] arguments)
+        public static MvcHtmlString GetRaw(string html, Func<object, object> escapeArgumentFunc, params object[] htmlArguments)
         {
-            return new MvcHtmlString(string.Format(I18NComplete.GetText(text), arguments
-                .Select(a => escapeArgumentFunc(a)).ToArray()));
+            return CultureInfo.CurrentUICulture.___(html, escapeArgumentFunc, htmlArguments);
         }
 
         /// <summary>
@@ -231,15 +207,15 @@ namespace System.Web.Mvc
         /// 	<para>Translates the given html applying string.Format(html, arguments) to the current culture language. </para>
         /// 	<para>For each argument the escape func will be called before applying the format</para>
         /// </summary>
-        /// <param name="text">The html to be translated</param>
-        /// <param name="arguments">The html arguments to be applied. For each argument will apply the escape func!</param>
+        /// <param name="html">The html to be translated</param>
+        /// <param name="htmlArguments">The html arguments to be applied. For each argument will apply the escape func!</param>
         /// <param name="escapeArgumentFunc">The func to be applied for each argument .i.e. <c>a =&gt; HttpUtility.HtmlAttributeEncode(a)</c></param>
         /// <returns>The translated formatted html as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 18:25:01 GMT"/>
-        public static MvcHtmlString FormatRaw(string text, Func<object, object> escapeArgumentFunc, params object[] arguments)
+        [NonAction]
+        public static MvcHtmlString FormatRaw(string html, Func<object, object> escapeArgumentFunc, params object[] htmlArguments)
         {
-            return new MvcHtmlString(string.Format(I18NComplete.GetText(text), arguments
-                .Select(a => escapeArgumentFunc(a)).ToArray()));
+            return CultureInfo.CurrentUICulture.___(html, escapeArgumentFunc, htmlArguments);
         }
     }
 }

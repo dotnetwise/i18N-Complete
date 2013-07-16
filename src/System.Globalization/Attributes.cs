@@ -39,9 +39,8 @@ public class DisplayNameAttribute
     {
         get
         {
-            return Arguments == null || Arguments.Length == 0
-            ? I18NComplete.GetText(this.DisplayNameValue)
-            : string.Format(I18NComplete.GetText(this.DisplayNameValue), Arguments);
+            var displayName = CultureInfo.CurrentUICulture._(this.DisplayNameValue, Arguments);
+            return displayName;
         }
     }
 
@@ -103,7 +102,7 @@ public class DisplayNameAttribute
     /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:50:20 GMT"/>
     public dynamic GetDescription()
     {
-        return I18NComplete.GetText(this._description);
+        return CultureInfo.CurrentUICulture._(this._description);
     }
 
     /// <summary>
@@ -112,7 +111,7 @@ public class DisplayNameAttribute
     /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:50:20 GMT"/>
     public dynamic GetGroupName()
     {
-        return I18NComplete.GetText(_groupName);
+        return CultureInfo.CurrentUICulture._(this._groupName);
     }
 
     /// <summary>
@@ -121,7 +120,7 @@ public class DisplayNameAttribute
     /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:50:20 GMT"/>
     public dynamic GetName()
     {
-        return I18NComplete.GetText(_name);
+        return CultureInfo.CurrentUICulture._(this._name);
     }
 
     /// <summary>
@@ -139,7 +138,7 @@ public class DisplayNameAttribute
     /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:50:20 GMT"/>
     public dynamic GetPrompt()
     {
-        return I18NComplete.GetText(this._prompt);
+        return CultureInfo.CurrentUICulture._(this._prompt);
     }
 
     /// <summary>
@@ -148,7 +147,7 @@ public class DisplayNameAttribute
     /// <created author="laurentiu.macovei" date="Fri, 24 Feb 2012 15:50:20 GMT"/>
     public dynamic GetShortName()
     {
-        return I18NComplete.GetText(this._shortName) ?? this.GetName();
+        return CultureInfo.CurrentUICulture._(this._shortName) ?? this.GetName();
     }
 
     /// <summary>Gets or sets the AutoGenerateField</summary>
@@ -507,7 +506,7 @@ public class RegularExpressionAttribute
     /// <created author="laurentiu.macovei" date="Mon, 26 Dec 2011 18:14:16 GMT"/>
     public override string FormatErrorMessage(string name)
     {
-        return string.Format(CultureInfo.CurrentCulture, I18NComplete.GetText(base.ErrorMessageString), new object[] { name, this.Pattern });
+        return CultureInfo.CurrentUICulture._(base.ErrorMessageString, name, this.Pattern);
     }
 
 
@@ -583,9 +582,10 @@ public class StringLengthAttribute
     /// <created author="laurentiu.macovei" date="Mon, 26 Dec 2011 18:14:16 GMT"/>
     public override string FormatErrorMessage(string name)
     {
-        string format = ((this.MinimumLength != 0) && this.ErrorMessage == null) ? I18NComplete.GetText("The field {0} must be a string with a minimum length of {2} and a maximum length of {1}.") : base.ErrorMessageString;
-
-        return CultureInfo.CurrentCulture._(format, name, this.MaximumLength, this.MinimumLength);
+        return CultureInfo.CurrentUICulture._(
+            ((this.MinimumLength != 0) && this.ErrorMessage == null)
+            ? "The field {0} must be a string with a minimum length of {2} and a maximum length of {1}."
+            : base.ErrorMessageString, name, this.MaximumLength, this.MinimumLength);
     }
 
 

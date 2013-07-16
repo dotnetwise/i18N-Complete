@@ -25,16 +25,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted text as string</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 19:22:32 GMT"/>
+        [NonAction]
         public static string _s(string singular, string plural, int count, params object[] arguments)
         {
-            var result = (arguments == null || arguments.Length == 0)
-                ? string.Format(count == 1 ? I18NComplete.GetText(singular) : I18NComplete.GetText(singular, plural: true), count)
-                : string.Format(count == 1 ? I18NComplete.GetText(singular) : I18NComplete.GetText(singular, plural: true), new object[] { count }.Concat(arguments).ToArray());
-            return
-#if DEBUG
- I18NComplete.OnGetting_s(result, CultureInfo.CurrentCulture, singular, plural, count, arguments) ??
-#endif
- result;
+            return CultureInfo.CurrentUICulture._s(singular, plural, count, arguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>_</c> (1 underscore) and <c>FormatPlural</c></para>
@@ -47,9 +41,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted text as string</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 19:24:55 GMT"/>
+        [NonAction]
         public static string GetPluralString(string singular, string plural, int count, params object[] arguments)
         {
-            return _s(singular, plural, count, arguments);
+            return CultureInfo.CurrentUICulture._s(singular, plural, count, arguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>_</c> (1 underscore) and <c>GetPluralString</c></para>
@@ -62,9 +57,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">Custom arguments list to be passed to string.Format</param>
         /// <returns>The translated formatted text as string</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 19:25:23 GMT"/>
+        [NonAction]
         public static string FormatPlural(string singular, string plural, int count, params object[] arguments)
         {
-            return _s(singular, plural, count, arguments);
+            return CultureInfo.CurrentUICulture._s(singular, plural, count, arguments);
         }
 
         /// <summary>
@@ -78,18 +74,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">The arguments to be applied as arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))</param>
         /// <returns>The translated formatted HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 19:28:20 GMT"/>
+        [NonAction]
         public static MvcHtmlString __s(string singularHTML, string pluralHTML, int count, params object[] arguments)
         {
-            var result = new MvcHtmlString(
-                (arguments == null || arguments.Length == 0)
-                ? string.Format(count == 1 ? I18NComplete.GetText(singularHTML) : I18NComplete.GetText(singularHTML, plural: true), count)
-                : string.Format(count == 1 ? I18NComplete.GetText(singularHTML) : I18NComplete.GetText(singularHTML, plural: true), new object[] { count }.Concat(arguments.Select(a => HttpUtility.HtmlEncode(a))).ToArray()));
-            return
-#if DEBUG
- I18NComplete.OnGetting__s(result, CultureInfo.CurrentCulture, singularHTML, pluralHTML, count, arguments) ??
-#endif
- result;
-
+            return CultureInfo.CurrentUICulture.__s(singularHTML, pluralHTML, count, arguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>__</c> (2 underscores) and <c>FormatHtmlPlural</c></para>
@@ -102,9 +90,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">The arguments to be applied as arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))</param>
         /// <returns>The translated formatted HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 19:32:19 GMT"/>
+        [NonAction]
         public static MvcHtmlString GetPluralHtml(string singularHTML, string pluralHTML, int count, params object[] arguments)
         {
-            return __s(singularHTML, pluralHTML, count, arguments);
+            return CultureInfo.CurrentUICulture.__s(singularHTML, pluralHTML, count, arguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>GetPluralHtml</c> and <c>FormatHtmlPlural</c></para>
@@ -117,9 +106,10 @@ namespace System.Web.Mvc
         /// <param name="arguments">The arguments to be applied as arguments.Select(a =&gt; HttpUtility.HtmlEncode(a))</param>
         /// <returns>The translated formatted HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 19:33:25 GMT"/>
+        [NonAction]
         public static MvcHtmlString FormatHtmlPlural(string singularHTML, string pluralHTML, int count, params object[] arguments)
         {
-            return __s(singularHTML, pluralHTML, count, arguments);
+            return CultureInfo.CurrentUICulture.__s(singularHTML, pluralHTML, count, arguments);
         }
 
 
@@ -134,18 +124,10 @@ namespace System.Web.Mvc
         /// <param name="htmlArguments">The html arguments to be applied. Warning! The arguments will not be htmlEncoded!</param>
         /// <returns>The translated formatted HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 20:55:00 GMT"/>
+        [NonAction]
         public static MvcHtmlString ___s(string singularHTML, string pluralHTML, int count, params object[] htmlArguments)
         {
-            var result = new MvcHtmlString(
-                (htmlArguments == null || htmlArguments.Length == 0)
-                ? string.Format(count == 1 ? I18NComplete.GetText(singularHTML) : I18NComplete.GetText(singularHTML, plural: true), count)
-                : string.Format(count == 1 ? I18NComplete.GetText(singularHTML) : I18NComplete.GetText(singularHTML, plural: true), new object[] { count }.Concat(htmlArguments).ToArray()));
-            return
-#if DEBUG
- I18NComplete.OnGetting___s(result, CultureInfo.CurrentCulture, singularHTML, pluralHTML, count, htmlArguments) ??
-#endif
- result;
-
+            return CultureInfo.CurrentUICulture.___s(singularHTML, pluralHTML, count, htmlArguments);
         }
         /// <summary>
         /// 	<para>@Alias <c>___s</c> (3 underscores and s) and <c>FormatRawPlural</c></para>
@@ -158,9 +140,10 @@ namespace System.Web.Mvc
         /// <param name="htmlArguments">The html arguments to be applied. Warning! The arguments will not be htmlEncoded!</param>
         /// <returns>The translated formatted HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 20:55:00 GMT"/>
+        [NonAction]
         public static MvcHtmlString GetPluralRaw(string singularHTML, string pluralHTML, int count, params object[] htmlArguments)
         {
-            return __s(singularHTML, pluralHTML, count, htmlArguments);
+            return CultureInfo.CurrentUICulture.___s(singularHTML, pluralHTML, count, htmlArguments);
         }
 
         /// <summary>
@@ -174,9 +157,10 @@ namespace System.Web.Mvc
         /// <param name="htmlArguments">The html arguments to be applied. Warning! The arguments will not be htmlEncoded!</param>
         /// <returns>The translated formatted HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 20:49:47 GMT"/>
+        [NonAction]
         public static MvcHtmlString FormatRawPlural(string singularHTML, string pluralHTML, int count, params object[] htmlArguments)
         {
-            return __s(singularHTML, pluralHTML, count, htmlArguments);
+            return CultureInfo.CurrentUICulture.___s(singularHTML, pluralHTML, count, htmlArguments);
         }
 
         /// <summary>
@@ -191,18 +175,10 @@ namespace System.Web.Mvc
         /// <param name="escapeArgumentFunc">The func to be applied for each argument .i.e. <c>a =&gt; HttpUtility.HtmlAttributeEncode(a)</c></param>
         /// <returns>The translated formatted text/HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 20:09:53 GMT"/>
+        [NonAction]
         public static MvcHtmlString ___s(string singularHTML, string pluralHTML, int count, Func<object, string> escapeArgumentFunc, params object[] htmlArguments)
         {
-            var result = new MvcHtmlString(
-                (htmlArguments == null || htmlArguments.Length == 0)
-                ? string.Format(count == 1 ? I18NComplete.GetText(singularHTML) : I18NComplete.GetText(singularHTML, plural: true), escapeArgumentFunc(count))
-                : string.Format(count == 1 ? I18NComplete.GetText(singularHTML) : I18NComplete.GetText(singularHTML, plural: true),
-                new object[] { escapeArgumentFunc(count) }.Concat(htmlArguments.Select(a => escapeArgumentFunc(a))).ToArray()));
-            return
-#if DEBUG
- I18NComplete.OnGetting___s(result, CultureInfo.CurrentCulture, singularHTML, pluralHTML, count, escapeArgumentFunc, htmlArguments) ??
-#endif
- result;
+            return CultureInfo.CurrentUICulture.___s(singularHTML, pluralHTML, count, htmlArguments);
         }
 
         /// <summary>
@@ -210,16 +186,17 @@ namespace System.Web.Mvc
         /// 	<para>Translates the given singular or plural text/html applying string.Format(count == 1 ? singular : plural, arguments.Select(a =&gt; escapeArgumentFunc(a))) to the current culture language. </para>
         /// 	<para>For each argument the escape func will be called before applying the format</para>
         /// </summary>
-        /// <param name="singular">The text/HTML to be translated when count is 1</param>
-        /// <param name="plural">The text/HTML to be translated when count is NOT 1</param>
+        /// <param name="singularHTML">The text/HTML to be translated when count is 1</param>
+        /// <param name="pluralHTML">The text/HTML to be translated when count is NOT 1</param>
         /// <param name="count">If count is 1 the singular text/HTML will be used, otherwise the plural text</param>
         /// <param name="arguments">The text/HTML arguments to be applied. For each argument will apply the escape func!</param>
         /// <param name="escapeArgumentFunc">The func to be applied for each argument .i.e. <c>a =&gt; HttpUtility.HtmlAttributeEncode(a)</c></param>
         /// <returns>The translated formatted text/HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 20:12:07 GMT"/>
-        public static MvcHtmlString GetPluralRaw(string singular, string plural, int count, Func<object, string> escapeArgumentFunc, params object[] arguments)
+        [NonAction]
+        public static MvcHtmlString GetPluralRaw(string singularHTML, string pluralHTML, int count, Func<object, string> escapeArgumentFunc, params object[] arguments)
         {
-            return __s(singular, plural, count, escapeArgumentFunc, arguments);
+            return CultureInfo.CurrentUICulture.__s(singularHTML, pluralHTML, count, arguments);
         }
 
         /// <summary>
@@ -227,16 +204,17 @@ namespace System.Web.Mvc
         /// 	<para>Translates the given singular or plural text/html applying string.Format(count == 1 ? singular : plural, arguments.Select(a =&gt; escapeArgumentFunc(a))) to the current culture language. </para>
         /// 	<para>For each argument the escape func will be called before applying the format</para>
         /// </summary>
-        /// <param name="singular">The text/HTML to be translated when count is 1</param>
-        /// <param name="plural">The text/HTML to be translated when count is NOT 1</param>
+        /// <param name="singularHTML">The text/HTML to be translated when count is 1</param>
+        /// <param name="pluralHTML">The text/HTML to be translated when count is NOT 1</param>
         /// <param name="count">If count is 1 the singular text/HTML will be used, otherwise the plural text</param>
         /// <param name="arguments">The text/HTML arguments to be applied. For each argument will apply the escape func!</param>
         /// <param name="escapeArgumentFunc">The func to be applied for each argument .i.e. <c>a =&gt; HttpUtility.HtmlAttributeEncode(a)</c></param>
         /// <returns>The translated formatted text/HTML as MvcHtmlString</returns>
         /// <created author="laurentiu.macovei" date="Thu, 24 Nov 2011 20:13:54 GMT"/>
-        public static MvcHtmlString FormatRawPlural(string singular, string plural, int count, Func<object, string> escapeArgumentFunc, params object[] arguments)
+        [NonAction]
+        public static MvcHtmlString FormatRawPlural(string singularHTML, string pluralHTML, int count, Func<object, string> escapeArgumentFunc, params object[] arguments)
         {
-            return __s(singular, plural, count, escapeArgumentFunc, arguments);
+            return CultureInfo.CurrentUICulture.__s(singularHTML, pluralHTML, count, arguments);
         }
     }
 }
