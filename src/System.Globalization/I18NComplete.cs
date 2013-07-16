@@ -13,7 +13,7 @@ namespace System.Globalization
     {
         /// <summary>The language that MsgIDs are given in (generally the language the project is being developed in).</summary>
         /// <created author="laurentiu.macovei" date="Fri, 25 Nov 2011 14:55:18 GMT"/>
-        public static readonly string DefaultWorkingLanguage = ConfigurationManager.AppSettings["Internalization.DefaultMessagesLanguage"] ?? "en";
+        public static readonly string DefaultWorkingLanguage = ConfigurationManager.AppSettings["Internationalization.DefaultMessagesLanguage"] ?? "en";
         /// <summary>The default culture LCID</summary>
         /// <created author="laurentiu.macovei" date="Tue, 29 Nov 2011 12:59:18 GMT"/>
         public static readonly int DefaultWorkingLanguageLCID = I18NComplete.LCID(DefaultWorkingLanguage);
@@ -23,14 +23,14 @@ namespace System.Globalization
         /// be stored.  
         /// </summary>
         /// <created author="laurentiu.macovei" date="Fri, 25 Nov 2011 14:55:18 GMT"/>
-        public static readonly string BasePath = ConfigurationManager.AppSettings["Internalization.Location"] ?? "~/Properties/Localization";
+        public static readonly string BasePath = ConfigurationManager.AppSettings["Internationalization.Location"] ?? "~/Properties/Localization";
 
         /// <summary>
         /// FOR TESTING ONLY!  If true, all calls to GetText will return an empty string.  
         /// this is useful when searching for any strings that might not be flagged for localization.  
         /// </summary>
         /// <created author="laurentiu.macovei" date="Fri, 25 Nov 2011 14:55:18 GMT"/>
-        public static readonly bool HideAllLocalizedText = ConfigurationManager.AppSettings["Internalization.HideAllLocalizedText"] == "true";
+        public static readonly bool HideAllLocalizedText = ConfigurationManager.AppSettings["Internationalization.HideAllLocalizedText"] == "true";
 
         /// <summary>
         /// The cached localization
