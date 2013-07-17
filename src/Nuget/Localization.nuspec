@@ -26,6 +26,7 @@
       ..and much more!
     </summary>
     <releaseNotes>
+      * Fixed Internationalization misspelling
       * Included PlaceHolderAttribute to be picked up by xgettext
       * Fixed consistency between localization methods
     </releaseNotes>
