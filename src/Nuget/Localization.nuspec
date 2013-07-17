@@ -25,7 +25,10 @@
       * Need plural expression? No prolbem! @_s("I have one car", "I have {0} cars", model.Count)
       ..and much more!
     </summary>
-    <releaseNotes>Fixed consistency between localization methods</releaseNotes>
+    <releaseNotes>
+      * Included PlaceHolderAttribute to be picked up by xgettext
+      * Fixed consistency between localization methods
+    </releaseNotes>
     <copyright>Copyright © DotNetWise 2013</copyright>
     <tags>localization javascript asp.net mvc i18N po globalization internationalization mvc4</tags>
     <dependencies>

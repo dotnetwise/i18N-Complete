@@ -58,7 +58,7 @@ IF "%Warn%"==warn (
 )
 
 
-"%GNU%\xgettext.exe" -k -k_ -k__q -k__ -k___ -k___q -kDisplayName -kDisplayNameAttribute -kRange -kRangeAttribute -kRequired -kRequiredAttribute -kRegularExpression -kRegularExpressionAttribute -kStringLength -kStringLengthAttribute -kCompare -kCompareAttribute -kEmail -kEmailAttribute -kGetText -kGetString -kGetHtml -kGetRaw -kFormatHtml -kFormatRaw -kGetRaw -kFormatRaw -k__h -k_s:1,2 -k__s:1,2 -k__hs:1,2 --from-code=UTF-8 --omit-header -o%PotMessages% -f%FilteredProjectFiles% --language=C# --no-wrap --sort-by-file 2>%ErrorsPath%
+"%GNU%\xgettext.exe" -k -k_ -k__q -k__ -k___ -k___q -kPlaceHolder -kPlaceHolderAttribute -kDisplayName -kDisplayNameAttribute -kRange -kRangeAttribute -kRequired -kRequiredAttribute -kRegularExpression -kRegularExpressionAttribute -kStringLength -kStringLengthAttribute -kCompare -kCompareAttribute -kEmail -kEmailAttribute -kGetText -kGetString -kGetHtml -kGetRaw -kFormatHtml -kFormatRaw -kGetRaw -kFormatRaw -k__h -k_s:1,2 -k__s:1,2 -k__hs:1,2 --from-code=UTF-8 --omit-header -o%PotMessages% -f%FilteredProjectFiles% --language=C# --no-wrap --sort-by-file 2>%ErrorsPath%
 IF NOT EXIST %PotMessages% ECHO #No items found > %PotMessages%
 IF NOT EXIST "%OutputDir%\messages.po" TYPE %PotMessages% >"%OutputDir%\messages.po"
 
