@@ -7,7 +7,8 @@ ASP.NET MVC &amp; Javascript localization done right
 * Plural
 
 
-### Singular `_`, `__` or `___`
+### Singular 
+`_`, `__` or `___`
 
 #### Quick translation in `C#`
 
@@ -59,7 +60,8 @@ This could be potentially dangerous if the arguments are not trusted i.e. come f
 <div>Welcome <b>John <i>Doe</i><b>. Your age is &lt; 100</div>
 ```
 
-###Plural `_s`, `__s`, `___s`
+###Plural 
+`_s`, `__s`, `___s`
 
 #### Quick translation in `cshtml`
 ```cs
