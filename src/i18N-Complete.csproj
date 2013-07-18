@@ -145,7 +145,7 @@
     <None Include="nuget\tools\Properties\Localization\messages.po" />
     <None Include="nuget\tools\Properties\Localization\messages.ro.po" />
     <None Include="nuget\tools\Properties\Localization\newmessages.pot" />
-    <None Include="nuget\content\Views\Localization\Index.cshtml" />
+    <None Include="nuget\content\Views\Localization\Help.cshtml" />
     <None Include="nuget\content\Views\Web.config.transform" />
     <None Include="nuget\Localization.nuspec">
       <SubType>Designer</SubType>
