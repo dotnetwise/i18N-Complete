@@ -85,3 +85,4 @@ else {
 ```
 
 [More Documentation to be written]
+In the meanwhile you could also navigate to your webiste to `/Localization/Help` for more documentation
