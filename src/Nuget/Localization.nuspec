@@ -26,6 +26,7 @@
       ..and much more!
     </summary>
     <releaseNotes>
+      * Fixed UTF-8 encoding by removing --omit-header in localize.bat
       * Fixed Internationalization misspelling
       * Included PlaceHolderAttribute to be picked up by xgettext
       * Fixed consistency between localization methods
