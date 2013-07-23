@@ -42,25 +42,28 @@ namespace System.Globalization
         static I18NComplete()
         {
             Localizations = new Dictionary<int, Localization>();
-            string _basePathAbsolute = HttpContext.Current.Server.MapPath(I18NComplete.BasePath);
-
-
-            if (Directory.Exists(_basePathAbsolute))
+            if (HttpContext.Current != null)
             {
-                Localization l;
-                foreach (string filename in Directory.GetFiles(_basePathAbsolute, "*.po", SearchOption.AllDirectories))
+                string _basePathAbsolute = HttpContext.Current.Server.MapPath(I18NComplete.BasePath);
+
+
+                if (Directory.Exists(_basePathAbsolute))
                 {
-                    var culture = Path.GetFileNameWithoutExtension(filename);
-                    culture = Path.GetExtension(culture);
-                    culture = culture.StartsWith(".") ? culture.Substring(1) : culture;
-                    var cultureHash = string.IsNullOrWhiteSpace(culture) ? I18NComplete.DefaultWorkingLanguageLCID : LCID(culture);
-                    if (!Localizations.TryGetValue(cultureHash, out l))
+                    Localization l;
+                    foreach (string filename in Directory.GetFiles(_basePathAbsolute, "*.po", SearchOption.AllDirectories))
                     {
-                        l = new Localization();
-                        l.LoadFromFile(filename);
-                        Localizations.Add(cultureHash, l);
+                        var culture = Path.GetFileNameWithoutExtension(filename);
+                        culture = Path.GetExtension(culture);
+                        culture = culture.StartsWith(".") ? culture.Substring(1) : culture;
+                        var cultureHash = string.IsNullOrWhiteSpace(culture) ? I18NComplete.DefaultWorkingLanguageLCID : LCID(culture);
+                        if (!Localizations.TryGetValue(cultureHash, out l))
+                        {
+                            l = new Localization();
+                            l.LoadFromFile(filename);
+                            Localizations.Add(cultureHash, l);
+                        }
+                        else l.LoadFromFile(filename);
                     }
-                    else l.LoadFromFile(filename);
                 }
             }
 
