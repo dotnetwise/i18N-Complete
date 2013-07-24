@@ -6,6 +6,8 @@ using System.Web.WebPages;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Threading;
+using System.IO;
+using System.Web.WebPages.Instrumentation;
 
 namespace System.Web.Mvc
 {
@@ -204,6 +206,94 @@ namespace System.Web.Mvc
         public static MvcHtmlString FormatRawPlural(string singularHTML, string pluralHTML, int count, Func<object, string> escapeArgumentFunc, params object[] htmlArguments)
         {
             return CultureInfo.CurrentUICulture.__s(singularHTML, pluralHTML, count, escapeArgumentFunc, htmlArguments);
+        }
+
+        //https://gist.github.com/anurse/4036121
+        //http://stackoverflow.com/questions/12321616/why-is-mvc-4-razor-escaping-ampersand-when-using-html-raw-in-a-title-attribute
+        /// <summary>Fixed MVC 4 bug &lt;div title=@Html.Raw("\"A&amp;B\") to render correctly &lt;div title="A&amp;B"</summary><param name="pageVirtualPath"></param><param name="writer"></param><param name="name"></param><param name="prefix"></param><param name="suffix"></param><param name="values"></param>
+        protected override void WriteAttributeTo(string pageVirtualPath, TextWriter writer, string name, PositionTagged<string> prefix, PositionTagged<string> suffix, params AttributeValue[] values)
+        {
+            bool first = true;
+            bool wroteSomething = false;
+            if (values.Length == 0)
+            {
+                // Explicitly empty attribute, so write the prefix and suffix
+                WritePositionTaggedLiteral(writer, pageVirtualPath, prefix);
+                WritePositionTaggedLiteral(writer, pageVirtualPath, suffix);
+            }
+            else
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    AttributeValue attrVal = values[i];
+                    PositionTagged<object> val = attrVal.Value;
+                    PositionTagged<string> next = i == values.Length - 1 ?
+                        suffix : // End of the list, grab the suffix
+                        values[i + 1].Prefix; // Still in the list, grab the next prefix
+
+                    bool? boolVal = null;
+                    if (val.Value is bool)
+                    {
+                        boolVal = (bool)val.Value;
+                    }
+
+                    if (val.Value != null && (boolVal == null || boolVal.Value))
+                    {
+                        string valStr = val.Value as string;
+                        // This shouldn't be needed any more
+                        //if (valStr == null)
+                        //{
+                        //    valStr = val.Value.ToString();
+                        //}
+                        if (boolVal != null)
+                        {
+                            valStr = name;
+                        }
+
+                        if (first)
+                        {
+                            WritePositionTaggedLiteral(writer, pageVirtualPath, prefix);
+                            first = false;
+                        }
+                        else
+                        {
+                            WritePositionTaggedLiteral(writer, pageVirtualPath, attrVal.Prefix);
+                        }
+
+                        // Calculate length of the source span by the position of the next value (or suffix)
+                        int sourceLength = next.Position - attrVal.Value.Position;
+
+                        BeginContext(writer, pageVirtualPath, attrVal.Value.Position, sourceLength, isLiteral: attrVal.Literal);
+                        if (attrVal.Literal)
+                        {
+                            WriteLiteralTo(writer, val.Value);
+                        }
+                        else
+                        {
+                            // Patch: Don't use valStr, use val.Value
+                            WriteTo(writer, val.Value); // Write value
+                        }
+                        EndContext(writer, pageVirtualPath, attrVal.Value.Position, sourceLength, isLiteral: attrVal.Literal);
+                        wroteSomething = true;
+                    }
+                }
+                if (wroteSomething)
+                {
+                    WritePositionTaggedLiteral(writer, pageVirtualPath, suffix);
+                }
+            }
+        }
+        /// <summary>Fixed MVC 4 bug &lt;div title=@Html.Raw("\"A&amp;B\") to render correctly &lt;div title="A&amp;B"</summary><param name="writer"></param><param name="pageVirtualPath"></param><param name="value"></param><param name="position"></param>
+        private void WritePositionTaggedLiteral(TextWriter writer, string pageVirtualPath, string value, int position)
+        {
+            BeginContext(writer, pageVirtualPath, position, value.Length, isLiteral: true);
+            WriteLiteralTo(writer, value);
+            EndContext(writer, pageVirtualPath, position, value.Length, isLiteral: true);
+        }
+        /// <summary>Fixed MVC 4 bug &lt;div title=@Html.Raw("\"A&amp;B\") to render correctly &lt;div title="A&amp;B"</summary><param name="writer"></param><param name="pageVirtualPath"></param><param name="value"></param>
+        private void WritePositionTaggedLiteral(TextWriter writer, string pageVirtualPath, PositionTagged<string> value)
+        {
+            WritePositionTaggedLiteral(writer, pageVirtualPath, value.Value, value.Position);
         }
     }
 }

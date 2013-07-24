@@ -26,6 +26,7 @@
       ..and much more!
     </summary>
     <releaseNotes>
+      * Fixed MVC 4 bug &lt;div title=@Html.Raw("\"A&amp;B\") to render correctly &lt;div title="A&amp;B"
       * Removed depenency of HttpContext.Current so it won't crash on start when used from non HTTP Context
       * Fixed UTF-8 encoding by removing --omit-header in localize.bat
       * Fixed Internationalization misspelling
